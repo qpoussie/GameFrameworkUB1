@@ -17,8 +17,9 @@ import java.awt.Canvas;
 import java.awt.Point;
 
 import linkwar.entity.Arrow;
+import linkwar.entity.BadLink;
 import linkwar.entity.GreenRoc;
-import linkwar.entity.Link;
+import linkwar.entity.NiceLink;
 import linkwar.entity.RedRoc;
 import linkwar.entity.Sand;
 import linkwar.entity.Tree;
@@ -122,10 +123,10 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		// (east side to west side)
 		universe.addGameEntity(new TeleportPairOfPoints(new Point(27 * SPRITE_SIZE, 14 * SPRITE_SIZE), new Point(
 				2 * SPRITE_SIZE, 14 * SPRITE_SIZE)));
-		
-		
+
+
 		// Pacman definition and inclusion in the universe
-		Link myPac = new Link(canvas);
+		NiceLink myPac = new NiceLink(canvas);
 		GameMovableDriverDefaultImpl pacDriver = new GameMovableDriverDefaultImpl();
 		MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
 		pacDriver.setStrategy(keyStr);
@@ -135,21 +136,19 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		myPac.setPosition(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
 		universe.addGameEntity(myPac);
 
-		/*
+
 		// Ghosts definition and inclusion in the universe
-		Ghost myGhost;
-		for (int t = 0; t < NUMBER_OF_GHOSTS; ++t) {
-			GameMovableDriverDefaultImpl ghostDriv = new GhostMovableDriver();
-			MoveStrategyRandom ranStr = new MoveStrategyRandom();
-			ghostDriv.setStrategy(ranStr);
-			ghostDriv.setmoveBlockerChecker(moveBlockerChecker);
-			myGhost = new Ghost(canvas);
-			myGhost.setDriver(ghostDriv);
-			myGhost.setPosition(new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE));
-			universe.addGameEntity(myGhost);
-			(overlapRules).addGhost(myGhost);
-		}
-*/
+		BadLink myBL;
+		GameMovableDriverDefaultImpl ghostDriv = new GhostMovableDriver();
+		MoveStrategyRandom ranStr = new MoveStrategyRandom();
+		ghostDriv.setStrategy(ranStr);
+		ghostDriv.setmoveBlockerChecker(moveBlockerChecker);
+		myBL = new BadLink(canvas);
+		myBL.setDriver(ghostDriv);
+		myBL.setPosition(new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE));
+		universe.addGameEntity(myBL);
+
+
 
 	}
 
