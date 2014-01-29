@@ -12,7 +12,7 @@ import java.awt.Rectangle;
 public class Sand implements Drawable, GameEntity {
 	protected static DrawableImage image = null;
 	int x, y;
-	public static final int RENDERING_SIZE = 16;
+	public static final int RENDERING_SIZE = 32;
 
 	public Sand(Canvas defaultCanvas, int xx, int yy) {
 		image = new DrawableImage("images/sand.gif", defaultCanvas);

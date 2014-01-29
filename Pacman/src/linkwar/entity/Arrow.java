@@ -12,7 +12,7 @@ import java.awt.Rectangle;
 public class Arrow implements Drawable, GameEntity, Overlappable {
 	protected static DrawableImage image = null;
 	protected Point position;
-	public static final int RENDERING_SIZE = 16;
+	public static final int RENDERING_SIZE = 32;
 
 	public Arrow(Canvas defaultCanvas, Point pos) {
 		image = new DrawableImage("images/arrow.png", defaultCanvas);

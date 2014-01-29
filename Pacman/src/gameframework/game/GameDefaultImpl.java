@@ -27,11 +27,12 @@ import javax.swing.JPanel;
 public class GameDefaultImpl implements Game, Observer {
 	protected static final int NB_ROWS = 31;
 	protected static final int NB_COLUMNS = 28;
-	protected static final int SPRITE_SIZE = 16;
+	protected static final int SPRITE_SIZE = 32;
 	public static final int MAX_NUMBER_OF_PLAYER = 4;
 	public static final int NUMBER_OF_LIVES = 1;
 
 	protected CanvasDefaultImpl defaultCanvas = null;
+	protected CanvasDefaultImpl LinkCanvas = null;
 	protected ObservableValue<Integer> score[] = new ObservableValue[MAX_NUMBER_OF_PLAYER];
 	protected ObservableValue<Integer> life[] = new ObservableValue[MAX_NUMBER_OF_PLAYER];
 
@@ -65,7 +66,7 @@ public class GameDefaultImpl implements Game, Observer {
 	}
 
 	public void createGUI() {
-		f = new Frame("Default Game");
+		f = new Frame("Link War");
 		f.dispose();
 
 		createMenuBar();

@@ -18,7 +18,7 @@ public class NiceLink extends GameMovable implements Drawable, GameEntity,
 		Overlappable, Selectable {
 	private DrawableUnitSelection drawableUnitSelection = new DrawableUnitSelection();
 	protected final SpriteManager spriteManager;
-	public static final int RENDERING_SIZE = 24;
+	public static final int RENDERING_SIZE = 32;
 	protected boolean movable = true;
 	protected boolean selected = false;
 	protected boolean dead = false;
