@@ -13,6 +13,7 @@ import gameframework.game.MoveBlockerCheckerDefaultImpl;
 import gameframework.game.OverlapProcessor;
 import gameframework.game.OverlapProcessorDefaultImpl;
 import gameframeworkExtension.MouseController;
+import gameframeworkExtension.MoveStrategyKeyboardLink;
 import gameframeworkExtension.MoveStrategyRandomBadLink;
 
 import java.awt.Canvas;
@@ -116,7 +117,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		NiceLink myLink2 = new NiceLink(canvas);
 		NiceLink myLink3 = new NiceLink(canvas);
 		GameMovableDriverDefaultImpl pacDriver = new GameMovableDriverDefaultImpl();
-		MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
+		MoveStrategyKeyboardLink keyStr = new MoveStrategyKeyboardLink();
 		pacDriver.setStrategy(keyStr);
 		pacDriver.setmoveBlockerChecker(moveBlockerChecker);
 		canvas.addKeyListener(keyStr);
@@ -135,7 +136,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		
 
 		// Enemies definition and inclusion in the universe
-		BadLink myBLSlow[] = new BadLink[10];
+		BadLink[] myBLSlow = new BadLink[10];
 		BadLink myBLQuick;
 
 		//bad Link slow
@@ -148,7 +149,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 			badlinkSlowDriv.setmoveBlockerChecker(moveBlockerChecker);
 			myBLSlow[i] = new BadLink(canvas);
 			myBLSlow[i].setDriver(badlinkSlowDriv);
-			myBLSlow[i].setPosition(new Point(SPRITE_SIZE * (i + 1) * 2, 1 * SPRITE_SIZE));
+			myBLSlow[i].setPosition(new Point(SPRITE_SIZE * 2, 1 * SPRITE_SIZE));
 			universe.addGameEntity(myBLSlow[i]);
 		}
 
