@@ -6,6 +6,8 @@ import gameframework.game.GameEntity;
 import gameframework.game.GameMovable;
 import gameframework.game.SpriteManager;
 import gameframework.game.SpriteManagerDefaultImpl;
+import gameframeworkExtension.DrawableUnitSelection;
+import gameframeworkExtension.Selectable;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
@@ -13,10 +15,12 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 public class NiceLink extends GameMovable implements Drawable, GameEntity,
-		Overlappable {
+		Overlappable, Selectable {
+	private DrawableUnitSelection drawableUnitSelection = new DrawableUnitSelection();
 	protected final SpriteManager spriteManager;
 	public static final int RENDERING_SIZE = 24;
 	protected boolean movable = true;
+	protected boolean selected = false;
 	protected boolean dead = false;
 
 	public NiceLink(Canvas defaultCanvas) {
@@ -59,6 +63,9 @@ public class NiceLink extends GameMovable implements Drawable, GameEntity,
 			}
 		}
 		spriteManager.setType(spriteType);
+		if(selected == true){
+			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE);
+		}
 		spriteManager.draw(g, getPosition());
 		
 		//this.die();

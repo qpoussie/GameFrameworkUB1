@@ -3,7 +3,6 @@ package linkwar.entity;
 import gameframework.base.Drawable;
 import gameframework.base.DrawableImage;
 import gameframework.game.GameEntity;
-import gameframework.game.MoveBlocker;
 
 import java.awt.Canvas;
 import java.awt.Graphics;

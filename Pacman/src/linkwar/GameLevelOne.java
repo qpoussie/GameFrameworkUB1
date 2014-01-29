@@ -12,6 +12,7 @@ import gameframework.game.MoveBlockerChecker;
 import gameframework.game.MoveBlockerCheckerDefaultImpl;
 import gameframework.game.OverlapProcessor;
 import gameframework.game.OverlapProcessorDefaultImpl;
+import gameframeworkExtension.MouseController;
 
 import java.awt.Canvas;
 import java.awt.Point;
@@ -23,16 +24,9 @@ import linkwar.entity.NiceLink;
 import linkwar.entity.RedRoc;
 import linkwar.entity.Sand;
 import linkwar.entity.Tree;
-import pacman.entity.Ghost;
-import pacman.entity.Jail;
-import pacman.entity.Pacgum;
-import pacman.entity.Pacman;
-import pacman.entity.SuperPacgum;
-import pacman.entity.TeleportPairOfPoints;
-import pacman.entity.Wall;
+import linkwar.rule.LinkWarOverlapRules;
 import pacman.rule.GhostMovableDriver;
 import pacman.rule.PacmanMoveBlockers;
-import pacman.rule.PacmanOverlapRules;
 
 public class GameLevelOne extends GameLevelDefaultImpl {
 	Canvas canvas;
@@ -80,16 +74,19 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		moveBlockerChecker.setMoveBlockerRules(new PacmanMoveBlockers());
 		
-		PacmanOverlapRules overlapRules = new PacmanOverlapRules(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE),
-				new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE), life[0], score[0], endOfGame);
+		LinkWarOverlapRules overlapRules = new LinkWarOverlapRules();
 		overlapProcessor.setOverlapRules(overlapRules);
-
+		
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
 		overlapRules.setUniverse(universe);
 
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 
+		//init mouseController (cyclic dependency between MouseController and canvas !)
+		MouseController mouseController = new MouseController(universe);
+		canvas.addMouseListener(mouseController);
+		canvas.addMouseMotionListener(mouseController);
 		int totalNbGums = 0;
 		
 		// Filling up the universe with basic non movable entities and inclusion in the universe
@@ -97,14 +94,12 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 			for (int j = 0; j < 28; ++j) {
 				if (tab[i][j] == 0) {
 					universe.addGameEntity(new Tree(canvas, j * SPRITE_SIZE, i * SPRITE_SIZE));
-					totalNbGums++;
 				}
 				if (tab[i][j] == 1) {
 					universe.addGameEntity(new GreenRoc(canvas, j * SPRITE_SIZE, i * SPRITE_SIZE));
 				}
 				if (tab[i][j] == 2) {
 					universe.addGameEntity(new Arrow(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
-					totalNbGums++;
 				}
 				if (tab[i][j] == 4) {
 					universe.addGameEntity(new RedRoc(canvas, j * SPRITE_SIZE, i * SPRITE_SIZE));
@@ -114,18 +109,8 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 				}
 			}
 		}
-		overlapRules.setTotalNbGums(totalNbGums);
 
-		// Two teleport points definition and inclusion in the universe
-		// (west side to east side)
-		universe.addGameEntity(new TeleportPairOfPoints(new Point(0 * SPRITE_SIZE, 14 * SPRITE_SIZE), new Point(
-				25 * SPRITE_SIZE, 14 * SPRITE_SIZE)));
-		// (east side to west side)
-		universe.addGameEntity(new TeleportPairOfPoints(new Point(27 * SPRITE_SIZE, 14 * SPRITE_SIZE), new Point(
-				2 * SPRITE_SIZE, 14 * SPRITE_SIZE)));
-
-
-		// Pacman definition and inclusion in the universe
+		// Nicelink definition and inclusion in the universe
 		NiceLink myPac = new NiceLink(canvas);
 		GameMovableDriverDefaultImpl pacDriver = new GameMovableDriverDefaultImpl();
 		MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
@@ -135,7 +120,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		myPac.setDriver(pacDriver);
 		myPac.setPosition(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
 		universe.addGameEntity(myPac);
-
+		
 
 		// Ghosts definition and inclusion in the universe
 		BadLink myBL;

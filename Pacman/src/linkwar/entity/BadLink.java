@@ -58,7 +58,7 @@ public class BadLink extends GameMovable implements Drawable, GameEntity,
 				movable = false;
 			}
 		}
-		spriteManager.setType(spriteType);
+		spriteManager.setType(spriteType);	
 		spriteManager.draw(g, getPosition());
 		
 		//this.die();
