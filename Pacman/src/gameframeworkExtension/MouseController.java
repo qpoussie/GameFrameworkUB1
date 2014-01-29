@@ -15,28 +15,55 @@ import java.util.List;
 
 public class MouseController extends MouseAdapter{
 	
-
+	private static MouseController uniqueInstance;
 	private GameUniverse gameUniverse;
 	private DrawableGlobalSelection drawableSelection;
 	private List<Selectable> currentSelection;
 	
-	public MouseController(GameUniverse gameUniverse){
-		this.gameUniverse = gameUniverse;
+	private MouseController(){}
+
+	public static MouseController getInstance(){
+		if(uniqueInstance == null)
+			uniqueInstance = new MouseController();
+		return uniqueInstance;
 	}
 	
+	public void setGameUnivers(GameUniverse gameUniverse){
+		this.gameUniverse = gameUniverse;
+	}
+
 	public void mousePressed(MouseEvent e){
-		drawableSelection = new DrawableGlobalSelection(e.getPoint());
+		drawableSelection = DrawableGlobalSelection.getInstance();
+		drawableSelection.setOriginePoint(e.getPoint());
 		gameUniverse.addGameEntity(drawableSelection);
 	}
 	
 	public void mouseReleased(MouseEvent e){
 		gameUniverse.removeGameEntity(drawableSelection);
-		OverlappableSelection overlappableSelection = new OverlappableSelection(drawableSelection);
-		if(overlappableSelection.getBoundingBox() != null)
+		OverlappableSelection overlappableSelection = OverlappableSelection.getInstance();
+		overlappableSelection.setPositionAndRectangle(drawableSelection);
+		if(overlappableSelection.getBoundingBox() != null){
 			gameUniverse.addGameEntity(overlappableSelection);
+			overlappableSelection.setActive(true);
+		}
 	}
 	
 	public void mouseDragged(MouseEvent e){
 		drawableSelection.setDragActualPos(e.getPoint());
+	}
+
+	public void setUniverse(GameUniverse universe) {
+		gameUniverse = universe;
+	}
+	
+	public void setSelection(List<Selectable> currentSelection){
+		if(this.currentSelection != null)
+			for(Selectable s : this.currentSelection){
+				s.setSelected(false);
+			}
+		this.currentSelection = currentSelection;
+		for(Selectable s : currentSelection){
+			s.setSelected(true);
+		}
 	}
 }

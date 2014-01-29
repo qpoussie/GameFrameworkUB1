@@ -5,10 +5,8 @@ import gameframework.base.SpeedVector;
 import gameframework.base.SpeedVectorDefaultImpl;
 
 import java.awt.Point;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.Point;
 
 public class MoveStrategyKeyboardLink implements MoveStrategy, KeyListener {
 		protected SpeedVector speedVector = new SpeedVectorDefaultImpl(new Point(0,

@@ -1,7 +1,6 @@
 package gameframeworkExtension;
 
 import gameframework.base.Drawable;
-import gameframework.base.SpeedVector;
 import gameframework.game.GameEntity;
 
 import java.awt.Color;
@@ -15,12 +14,21 @@ import java.awt.Rectangle;
  */
 public class DrawableGlobalSelection implements Drawable, GameEntity {
 
+	private static DrawableGlobalSelection uniqueInstance;
 	private Point dragOrigine;
 	private Point dragActualPos;
 	private Point position;
 	private Rectangle boundingRect;
 	
-	public DrawableGlobalSelection(Point dragOrigine) {
+	private DrawableGlobalSelection() {}
+	
+	public static DrawableGlobalSelection getInstance(){
+		if(uniqueInstance == null)
+			uniqueInstance = new DrawableGlobalSelection();
+		return uniqueInstance;
+	}
+	
+	public void setOriginePoint(Point dragOrigine){
 		this.dragOrigine = dragOrigine;
 		this.dragActualPos = dragOrigine;
 	}

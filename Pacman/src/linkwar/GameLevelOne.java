@@ -1,7 +1,5 @@
 package linkwar;
 
-import gameframework.base.MoveStrategyKeyboard;
-import gameframework.base.MoveStrategyRandom;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
 import gameframework.game.GameLevelDefaultImpl;
@@ -87,7 +85,8 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 
 		//init mouseController (cyclic dependency between MouseController and canvas !)
-		MouseController mouseController = new MouseController(universe);
+		MouseController mouseController = MouseController.getInstance();
+		mouseController.setGameUnivers(universe);
 		canvas.addMouseListener(mouseController);
 		canvas.addMouseMotionListener(mouseController);
 		
