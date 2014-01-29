@@ -4,8 +4,8 @@ import linkstr.entity.soldier.Horseman;
 import linkstr.entity.soldier.InfantryMan;
 import linkstr.entity.soldier.Soldier;
 import linkstr.entity.soldier.SoldierAbstract;
-import noyauSTR.weapon.SoldierWithShield;
-import noyauSTR.weapon.SoldierWithSword;
+import linkstr.entity.soldier.weapon.SoldierWithShield;
+import linkstr.entity.soldier.weapon.SoldierWithSword;
 
 public class MiddleAgeFactory implements AgeFactory {
 	public SoldierAbstract getSimpleSoldier(String name) {
