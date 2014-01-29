@@ -22,7 +22,7 @@ public class TestVisitorClassic {
 	    age = new MiddleAgeFactory();
 		squad1 = new ArmedUnitSquad(age, "Lincoln");
 		squad2 = new ArmedUnitSquad(age, "Kieffer");
-		sf1 = new ArmedUnitSoldier(age, "Simple", "Gogol1");
+		/*sf1 = new ArmedUnitSoldier(age, "Simple", "Gogol1");
 		sf2 = new ArmedUnitSoldier(age, "Simple", "Gogol2");
 		sc1 = new ArmedUnitSoldier(age, "Complex", "Sanchez1");
 		sc2 = new ArmedUnitSoldier(age, "Complex", "Sanchez2");
@@ -32,7 +32,7 @@ public class TestVisitorClassic {
 		squad1.addUnit(sf2);
 		squad2.addUnit(sc1);
 		squad2.addUnit(sc2);
-		squad2.addUnit(s);
+		squad2.addUnit(s);*/
 
 		VisitorClassicNamer v = new VisitorClassicNamer();
 		squad1.accept(v);

@@ -1,5 +1,11 @@
 package noyauSTR.soldier;
 
+import gameframework.base.SpeedVector;
+import gameframework.game.GameMovableDriver;
+
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,6 +117,66 @@ public class ArmedUnitSquad extends ObservableAbstract<ArmedUnit> implements
 			result = v.compos(result, s.accept(v));
 		}
 		return result;
+	}
+
+	@Override
+	public void setDriver(GameMovableDriver driver) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPosition(Point p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void oneStepMoveAddedBehavior() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Point getPosition() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Rectangle getBoundingBox() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SpeedVector getSpeedVector() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSpeedVector(SpeedVector m) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void oneStepMove() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public GameMovableDriver getDriver() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

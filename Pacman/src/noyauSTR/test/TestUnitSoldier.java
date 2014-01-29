@@ -17,8 +17,8 @@ public class TestUnitSoldier {
 	@Before
 	public void setUp() throws Exception {
 		age = new MiddleAgeFactory();
-		sf = new ArmedUnitSoldier(age, "Simple", "Gogol");
-		sc = new ArmedUnitSoldier(age, "Complex", "Sanchez");
+		/*sf = new ArmedUnitSoldier(age, "Simple", "Gogol");
+		sc = new ArmedUnitSoldier(age, "Complex", "Sanchez");*/
 	}
 
 	@Test(expected = UnknownSoldierTypeException.class)
@@ -49,6 +49,6 @@ public class TestUnitSoldier {
 		}
 		assertEquals("Unexpected death of " + sc.getName(), i, 3);
  
- 		new ArmedUnitSoldier(age, "Poilu", "Gogol"); //exception raised : unknown soldier type
+ 		//new ArmedUnitSoldier(age, "Poilu", "Gogol"); //exception raised : unknown soldier type
 	}
 }

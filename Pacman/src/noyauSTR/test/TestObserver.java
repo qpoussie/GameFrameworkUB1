@@ -25,7 +25,7 @@ public class TestObserver {
 		age = new MiddleAgeFactory();
 		squad1 = new ArmedUnitSquad(age, "Lincoln Squad");
 		squad2 = new ArmedUnitSquad(age, "Kieffer Squad");
-		sf1 = new ArmedUnitSoldier(age, "Simple", "Gogol1");
+		/*sf1 = new ArmedUnitSoldier(age, "Simple", "Gogol1");
 		sc1 = new ArmedUnitSoldier(age, "Complex", "Sanchez1");
 		sf2 = new ArmedUnitSoldier(age, "Simple", "Gogol2");
 		sc2 = new ArmedUnitSoldier(age, "Complex", "Sanchez2");
@@ -43,7 +43,7 @@ public class TestObserver {
 
 		sf1.register(ob2); sc1.register(ob2);
 		sf2.register(ob2); sc2.register(ob2); sc3.register(ob2);
-		
+		*/
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(stream));
 		int i;  

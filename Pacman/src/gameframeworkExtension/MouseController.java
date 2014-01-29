@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Permet la gestion de la souris : 
  * le MouseController construit un OverlappableSelection, il l'ajoute au GameUniverse,
- * puis l'OverlapRulesApplierExtensionDefaultImpl le recupère et se charge de les remplir de Selectable
+ * puis l'OverlapRulesApplierExtensionDefaultImpl le recupï¿½re et se charge de les remplir de Selectable
  * 
  */
 
@@ -22,9 +22,8 @@ public class MouseController extends MouseAdapter{
 	
 	public MouseController(GameUniverse gameUniverse){
 		this.gameUniverse = gameUniverse;
-
 	}
-		
+	
 	public void mousePressed(MouseEvent e){
 		drawableSelection = new DrawableGlobalSelection(e.getPoint());
 		gameUniverse.addGameEntity(drawableSelection);

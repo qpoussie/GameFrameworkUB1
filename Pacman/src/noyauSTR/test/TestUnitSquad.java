@@ -19,7 +19,7 @@ public class TestUnitSquad {
 	public void setUp() throws Exception {
 		age = new MiddleAgeFactory();
 		squad = new ArmedUnitSquad(age, "Lincoln");
-		sf1 = new ArmedUnitSoldier(age, "Simple", "Gogol1");
+		/*sf1 = new ArmedUnitSoldier(age, "Simple", "Gogol1");
 		sf2 = new ArmedUnitSoldier(age, "Simple", "Gogol2");
 		sc1 = new ArmedUnitSoldier(age, "Complex", "Sanchez1");
 		sc2 = new ArmedUnitSoldier(age, "Complex", "Sanchez2");
@@ -28,7 +28,7 @@ public class TestUnitSquad {
 		squad.addUnit(sf1);
 		squad.addUnit(sf2);
 		squad.addUnit(sc1);
-		squad.addUnit(sc2);
+		squad.addUnit(sc2);*/
 	}
 
 	@Test

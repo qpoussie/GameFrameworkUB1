@@ -1,5 +1,5 @@
 package gameframeworkExtension;
 
-public interface Selectable {
+public interface Selectable{
 
 }
