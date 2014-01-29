@@ -1,6 +1,6 @@
 package noyauSTR.weapon;
 
-import noyauSTR.soldier.Soldier;
+import linkstr.entity.soldier.Soldier;
 
 /**
  * @param <W>
