@@ -9,7 +9,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 /**
- * Une GameEntity Drawable qui sert à afficher le rectangle vert qui suit le drag de la souris lors de la selection
+ * Une GameEntity Singleton Drawable qui sert à afficher le rectangle vert qui suit le drag de la souris lors de la selection
  * 
  */
 public class DrawableGlobalSelection implements Drawable, GameEntity {

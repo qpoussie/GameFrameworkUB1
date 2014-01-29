@@ -14,8 +14,6 @@ import java.util.Vector;
  * A Utiliser a la place de OverlapRulesApplierDefaultImpl pour les 
  * jeux utilisant le controle a la souris.
  * 
- *
- * 
  */
 public abstract class OverlapRulesApplierExtensionDefaultImpl extends
 		OverlapRulesApplierDefaultImpl {
