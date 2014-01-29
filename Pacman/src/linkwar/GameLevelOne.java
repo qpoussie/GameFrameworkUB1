@@ -13,9 +13,12 @@ import gameframework.game.MoveBlockerCheckerDefaultImpl;
 import gameframework.game.OverlapProcessor;
 import gameframework.game.OverlapProcessorDefaultImpl;
 import gameframeworkExtension.MouseController;
+import gameframeworkExtension.MoveStrategyKeyboardLink;
+import gameframeworkExtension.MoveStrategyRandomBadLink;
 
 import java.awt.Canvas;
 import java.awt.Point;
+import java.util.Random;
 
 import linkwar.entity.Arrow;
 import linkwar.entity.BadLink;
@@ -24,48 +27,48 @@ import linkwar.entity.NiceLink;
 import linkwar.entity.RedRoc;
 import linkwar.entity.Sand;
 import linkwar.entity.Tree;
+import linkwar.rule.BadLinkMovableDriver;
 import linkwar.rule.LinkWarOverlapRules;
-import pacman.rule.GhostMovableDriver;
 import pacman.rule.PacmanMoveBlockers;
 
 public class GameLevelOne extends GameLevelDefaultImpl {
 	Canvas canvas;
 
+	static Random random = new Random();
 	static int[][] tab = { 
 		    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-			{ 1, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-			{ 1, 5, 5, 5, 5, 5, 5, 1, 5, 5, 1, 1, 1, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-			{ 1, 5, 5, 5, 5, 5, 5, 1, 5, 5, 1, 5, 1, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-			{ 1, 5, 5, 5, 5, 5, 5, 1, 1, 5, 1, 1, 1, 5, 1, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
+			{ 1, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
+			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
+			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
+			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
+			{ 1, 0, 0, 0, 0, 0, 0, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 0, 0, 0, 0, 0, 0, 1 },
+			{ 1, 0, 0, 0, 0, 0, 0, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 0, 0, 0, 0, 0, 0, 1 },
+			{ 1, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5, 5, 5, 5, 5, 5, 1 },
-			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5, 5, 5, 5, 5, 5, 1 },
-			{ 1, 5, 5, 5, 5, 5, 4, 5, 5, 5, 5, 5, 5, 5, 4, 4, 5, 5, 5, 4, 4, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
+			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
+			{ 1, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 1 },
+			{ 1, 0, 0, 0, 0, 0, 0, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 0, 0, 0, 0, 0, 0, 1 },
+			{ 1, 0, 0, 0, 0, 0, 0, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 0, 0, 0, 0, 0, 0, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-			{ 1, 5, 5, 5, 5, 5, 0, 0, 0, 5, 0, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-			{ 1, 5, 5, 5, 5, 5, 5, 0, 5, 5, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 1 },
-			{ 1, 5, 5, 5, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-			{ 1, 5, 5, 5, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
+			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
+			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5, 5, 5, 1 },
+			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }};
 
-	public static final int SPRITE_SIZE = 16;
-	public static final int NUMBER_OF_GHOSTS = 5;
+	public static final int SPRITE_SIZE = 32;
 
 	@Override
 	protected void init() {
@@ -87,7 +90,6 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		MouseController mouseController = new MouseController(universe);
 		canvas.addMouseListener(mouseController);
 		canvas.addMouseMotionListener(mouseController);
-		int totalNbGums = 0;
 		
 		// Filling up the universe with basic non movable entities and inclusion in the universe
 		for (int i = 0; i < 31; ++i) {
@@ -111,27 +113,59 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		}
 
 		// Nicelink definition and inclusion in the universe
-		NiceLink myPac = new NiceLink(canvas);
+		NiceLink myLink1 = new NiceLink(canvas);
+		NiceLink myLink2 = new NiceLink(canvas);
+		NiceLink myLink3 = new NiceLink(canvas);
 		GameMovableDriverDefaultImpl pacDriver = new GameMovableDriverDefaultImpl();
-		MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
+		MoveStrategyKeyboardLink keyStr = new MoveStrategyKeyboardLink();
 		pacDriver.setStrategy(keyStr);
 		pacDriver.setmoveBlockerChecker(moveBlockerChecker);
 		canvas.addKeyListener(keyStr);
-		myPac.setDriver(pacDriver);
-		myPac.setPosition(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
-		universe.addGameEntity(myPac);
+		
+		myLink1.setDriver(pacDriver);
+		myLink1.setPosition(new Point(12 * SPRITE_SIZE, 28 * SPRITE_SIZE));
+		myLink2.setDriver(pacDriver);
+		myLink2.setPosition(new Point(14 * SPRITE_SIZE, 28 * SPRITE_SIZE));
+		myLink3.setDriver(pacDriver);
+		myLink3.setPosition(new Point(16 * SPRITE_SIZE, 28 * SPRITE_SIZE));
 		
 
-		// Ghosts definition and inclusion in the universe
-		BadLink myBL;
-		GameMovableDriverDefaultImpl ghostDriv = new GhostMovableDriver();
-		MoveStrategyRandom ranStr = new MoveStrategyRandom();
-		ghostDriv.setStrategy(ranStr);
-		ghostDriv.setmoveBlockerChecker(moveBlockerChecker);
-		myBL = new BadLink(canvas);
-		myBL.setDriver(ghostDriv);
-		myBL.setPosition(new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE));
-		universe.addGameEntity(myBL);
+		universe.addGameEntity(myLink1);
+		universe.addGameEntity(myLink2);
+		universe.addGameEntity(myLink3);
+		
+
+		// Enemies definition and inclusion in the universe
+		BadLink[] myBLSlow = new BadLink[10];
+		BadLink myBLQuick;
+
+		//bad Link slow
+		for(int i = 0; i < 10; i++){
+			BadLinkMovableDriver badlinkSlowDriv = new BadLinkMovableDriver();
+			badlinkSlowDriv.setLinkSpeed(random.nextInt(10)+1);
+			MoveStrategyRandomBadLink mStrSlow = new MoveStrategyRandomBadLink();
+			mStrSlow.setChangeFreq(40);
+			badlinkSlowDriv.setStrategy(mStrSlow);
+			badlinkSlowDriv.setmoveBlockerChecker(moveBlockerChecker);
+			myBLSlow[i] = new BadLink(canvas);
+			myBLSlow[i].setDriver(badlinkSlowDriv);
+			myBLSlow[i].setPosition(new Point(SPRITE_SIZE * 2, 1 * SPRITE_SIZE));
+			universe.addGameEntity(myBLSlow[i]);
+		}
+
+		//bad Link quick
+		BadLinkMovableDriver badlinkQuickDriv = new BadLinkMovableDriver();
+		badlinkQuickDriv.setLinkSpeed(16);
+		MoveStrategyRandomBadLink mStrQuick = new MoveStrategyRandomBadLink();
+		mStrQuick.setChangeFreq(6);
+		badlinkQuickDriv.setStrategy(mStrQuick);
+		badlinkQuickDriv.setmoveBlockerChecker(moveBlockerChecker);
+		myBLQuick = new BadLink(canvas);
+		myBLQuick.setDriver(badlinkQuickDriv);
+		myBLQuick.setPosition(new Point(24 * SPRITE_SIZE, 2 * SPRITE_SIZE));
+		
+		
+		universe.addGameEntity(myBLQuick);
 
 
 

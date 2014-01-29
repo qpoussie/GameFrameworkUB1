@@ -15,7 +15,7 @@ import java.awt.Rectangle;
 public class BadLink extends GameMovable implements Drawable, GameEntity,
 		Overlappable {
 	protected final SpriteManager spriteManager;
-	public static final int RENDERING_SIZE = 24;
+	public static final int RENDERING_SIZE = 32;
 	protected boolean movable = true;
 	protected boolean dead = false;
 
