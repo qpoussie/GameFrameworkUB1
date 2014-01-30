@@ -27,9 +27,9 @@ import linkstr.entity.Sand;
 import linkstr.entity.Tree;
 import linkstr.entity.soldier.ArmedUnitSoldier;
 import linkstr.entity.soldier.SelectableArmedUnit;
+import linkstr.rule.BadLinkMovableDriver;
 import linkstr.rule.STROverlapRules;
 import linkstr.utils.MiddleAgeFactory;
-import linkwar.rule.BadLinkMovableDriver;
 import pacman.rule.PacmanMoveBlockers;
 
 public class GameLevelOne extends GameLevelDefaultImpl {
