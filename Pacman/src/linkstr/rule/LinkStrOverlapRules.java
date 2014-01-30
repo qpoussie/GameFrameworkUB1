@@ -2,7 +2,6 @@ package linkstr.rule;
 
 import java.util.Vector;
 
-import linkstr.entity.soldier.ArmedUnit;
 import linkstr.entity.soldier.ArmedUnitSoldier;
 import linkstr.entity.soldier.SelectableArmedUnit;
 import gameframework.base.Overlap;
@@ -33,7 +32,7 @@ public class LinkStrOverlapRules extends OverlapRulesApplierExtensionDefaultImpl
 			
 			/* 
 			if(!enemy.alive())
-			 	System.out.println("enemy "+enemy.getName()+" est mort.\n");
+			 	//System.out.println("enemy "+enemy.getName()+" est mort.\n");
 			if(!ally.alive())
 				System.out.println("allié "+ally.getName()+" est mort.\n");//*/
 		}

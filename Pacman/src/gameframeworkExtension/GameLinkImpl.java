@@ -32,13 +32,13 @@ public class GameLinkImpl implements Game, Observer {
 	protected static final int NB_ROWS = 31;
 	protected static final int NB_COLUMNS = 28;
 	protected static final int SPRITE_SIZE = 32;
-	public static final int MAX_NUMBER_OF_PLAYER = 4;
-	public static final int NUMBER_OF_LIVES = 1;
+	public static final int MAX_NUMBER_OF_PLAYER = 1;
 
 	protected CanvasDefaultImpl defaultCanvas = null;
 	protected CanvasDefaultImpl LinkCanvas = null;
 	protected ObservableValue<Integer> score[] = new ObservableValue[MAX_NUMBER_OF_PLAYER];
-	protected ObservableValue<Integer> life[] = new ObservableValue[MAX_NUMBER_OF_PLAYER];
+	protected ObservableValue<Integer> linkAlive[] = new ObservableValue[MAX_NUMBER_OF_PLAYER];
+	protected ObservableValue<Integer> badLinkAlive[] = new ObservableValue[MAX_NUMBER_OF_PLAYER];
 
 	// initialized before each level
 	protected ObservableValue<Boolean> endOfGame = null;
@@ -49,19 +49,21 @@ public class GameLinkImpl implements Game, Observer {
 	protected int levelNumber;
 	protected ArrayList<GameLevel> gameLevels;
 
-	protected Label lifeText, scoreText;
+	protected Label lifeText, badLifeText,scoreText;
 	protected Label information;
 	protected Label informationValue;
-	protected Label lifeValue, scoreValue;
+	protected Label linkAliveValue, badLinkAliveValue,scoreValue;
 	protected Label currentLevel;
 	protected Label currentLevelValue;
 
 	public GameLinkImpl() {
 		for (int i = 0; i < MAX_NUMBER_OF_PLAYER; ++i) {
 			score[i] = new ObservableValue<Integer>(0);
-			life[i] = new ObservableValue<Integer>(0);
+			linkAlive[i] = new ObservableValue<Integer>(0);
+			badLinkAlive[i] = new ObservableValue<Integer>(0);
 		}
-		lifeText = new Label("Lives:");
+		lifeText = new Label("Soldier Alive:");
+		badLifeText = new Label("Enemy Soldier Alive:");
 		scoreText = new Label("Score:");
 		information = new Label("State:");
 		informationValue = new Label("Playing");
@@ -70,7 +72,7 @@ public class GameLinkImpl implements Game, Observer {
 	}
 
 	public void createGUI() {
-		f = new Frame("Link War");
+		f = new Frame("Link STR");
 		f.dispose();
 
 		createMenuBar();
@@ -148,11 +150,14 @@ public class GameLinkImpl implements Game, Observer {
 		JPanel c = new JPanel();
 		GridBagLayout layout = new GridBagLayout();
 		c.setLayout(layout);
-		lifeValue = new Label(Integer.toString(life[0].getValue()));
+		linkAliveValue = new Label(Integer.toString(linkAlive[0].getValue()));
+		badLinkAliveValue = new Label(Integer.toString(badLinkAlive[0].getValue()));
 		scoreValue = new Label(Integer.toString(score[0].getValue()));
 		currentLevelValue = new Label(Integer.toString(levelNumber));
 		c.add(lifeText);
-		c.add(lifeValue);
+		c.add(linkAliveValue);
+		c.add(badLifeText);
+		c.add(badLinkAliveValue);
 		c.add(scoreText);
 		c.add(scoreValue);
 		c.add(currentLevel);
@@ -169,8 +174,8 @@ public class GameLinkImpl implements Game, Observer {
 	public void start() {
 		for (int i = 0; i < MAX_NUMBER_OF_PLAYER; ++i) {
 			score[i].addObserver(this);
-			life[i].addObserver(this);
-			life[i].setValue(NUMBER_OF_LIVES);
+			linkAlive[i].addObserver(this);
+			linkAlive[i].setValue(0);
 			score[i].setValue(0);
 		}
 		levelNumber = 0;
@@ -216,7 +221,7 @@ public class GameLinkImpl implements Game, Observer {
 	}
 
 	public ObservableValue<Integer>[] life() {
-		return life;
+		return linkAlive;
 	}
 
 	public ObservableValue<Boolean> endOfGame() {
@@ -231,28 +236,38 @@ public class GameLinkImpl implements Game, Observer {
 		if (o == endOfGame) {
 			if (endOfGame.getValue()) {
 				informationValue.setText("You win");
+				Sound winSound = new Sound("sounds/win.wav");
+				winSound.play();
 				currentPlayedLevel.interrupt();
 				currentPlayedLevel.end();
 			}
 		} else {
-			for (ObservableValue<Integer> lifeObservable : life) {
-				if (o == lifeObservable) {
-					int lives = ((ObservableValue<Integer>) o).getValue();
-					lifeValue.setText(Integer.toString(lives));
-					if (lives == 0) {
-						informationValue.setText("Defeat");
-						currentPlayedLevel.interrupt();
-						currentPlayedLevel.end();
+			if(o == linkAlive[0]){
+				for (ObservableValue<Integer> lifeObservable : linkAlive) {
+					if (o == lifeObservable) {
+						int lives = ((ObservableValue<Integer>) o).getValue();
+						linkAliveValue.setText(Integer.toString(lives));
+						if (lives == 0) {
+							informationValue.setText("Defeat");
+							Sound winSound = new Sound("sounds/loose.wav");
+							winSound.play();
+							currentPlayedLevel.interrupt();
+							currentPlayedLevel.end();
+						}
+					}
+				}
+				for (ObservableValue<Integer> scoreObservable : score) {
+					if (o == scoreObservable) {
+						scoreValue
+								.setText(Integer
+										.toString(((ObservableValue<Integer>) o)
+												.getValue()));
 					}
 				}
 			}
-			for (ObservableValue<Integer> scoreObservable : score) {
-				if (o == scoreObservable) {
-					scoreValue
-							.setText(Integer
-									.toString(((ObservableValue<Integer>) o)
-											.getValue()));
-				}
+			else{
+				if(badLinkAlive[0].getValue() == 0)
+					endOfGame();
 			}
 		}
 	}

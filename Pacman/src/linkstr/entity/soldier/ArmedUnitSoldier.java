@@ -170,6 +170,7 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 		if(selected == true){
 			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE);
 		}
+
 		spriteManager.draw(g, getPosition());
 		
 	}
@@ -180,6 +181,7 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 
 	public void setSpeedVector(SpeedVector m){
 		gameMovable.setSpeedVector(m);
+
 	}
 
 	public void oneStepMove(){

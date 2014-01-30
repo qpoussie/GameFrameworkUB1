@@ -25,10 +25,9 @@ import linkstr.entity.Sand;
 import linkstr.entity.Tree;
 import linkstr.entity.soldier.ArmedUnitSoldier;
 import linkstr.entity.soldier.SelectableArmedUnit;
-import linkstr.rule.LinkStrOverlapRules;
-
 import linkstr.rule.BadLinkMovableDriver;
-
+import linkstr.rule.LinkStrOverlapRules;
+import linkstr.rule.MoveStrategyDeadUnit;
 import linkstr.utils.MiddleAgeFactory;
 import pacman.rule.PacmanMoveBlockers;
 
@@ -120,42 +119,42 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		MiddleAgeFactory ageFactory = new MiddleAgeFactory();
 		
 		SelectableArmedUnit[] niceUnits = new SelectableArmedUnit[5];
+
+		GameMovableDriverDefaultImpl niceLinkDriver = new GameMovableDriverDefaultImpl();
+		MoveStrategyStraightLine straightLine = new MoveStrategyStraightLine(new Point(), new Point());
+		
 		
 		for(int i=0; i<5; i++){
 			niceUnits[i] = new SelectableArmedUnit(new ArmedUnitSoldier(ageFactory, "Simple", "niceLink"+i, canvas, "images/brownLink.png"));
-			
-			GameMovableDriverDefaultImpl niceLinkDriver = new GameMovableDriverDefaultImpl();
-			
-			MoveStrategyStraightLine straightLine = new MoveStrategyStraightLine(new Point(), new Point());
+						
 			niceLinkDriver.setStrategy(straightLine);
 			niceUnits[i].setDriver(niceLinkDriver);
 			
 			niceUnits[i].setPosition(new Point((12 + i) * SPRITE_SIZE, 28 * SPRITE_SIZE));
 			universe.addGameEntity(niceUnits[i]);
 		}
-		
-		
+
 		
 		// Enemies definition and inclusion in the universe
 		ArmedUnitSoldier[] myBLSlow = new ArmedUnitSoldier[10];
-
+		BadLinkMovableDriver badlinkSlowDriv = new BadLinkMovableDriver();
+		MoveStrategyRandomBadLink mStrSlow = new MoveStrategyRandomBadLink();
+		
 		//bad Link slow
 		for(int i = 0; i < 10; i++){
-			BadLinkMovableDriver badlinkSlowDriv = new BadLinkMovableDriver();
+			
 			badlinkSlowDriv.setLinkSpeed(random.nextInt(10)+1);
-			MoveStrategyRandomBadLink mStrSlow = new MoveStrategyRandomBadLink();
 			mStrSlow.setChangeFreq(40);
+			
 			badlinkSlowDriv.setStrategy(mStrSlow);
 			badlinkSlowDriv.setmoveBlockerChecker(moveBlockerChecker);
-			myBLSlow[i] = new ArmedUnitSoldier(ageFactory, "Simple", "badLink"+i, canvas, "images/darklink.png");
 			
+			myBLSlow[i] = new ArmedUnitSoldier(ageFactory, "Simple", "badLink"+i, canvas, "images/darklink.png");
 			myBLSlow[i].setDriver(badlinkSlowDriv);
 			myBLSlow[i].setPosition(new Point(SPRITE_SIZE * (4 + i*2), 1 * SPRITE_SIZE));
+			
 			universe.addGameEntity(myBLSlow[i]);
 		}
-
-
-
 	}
 
 	public GameLevelOne(Game g) {
