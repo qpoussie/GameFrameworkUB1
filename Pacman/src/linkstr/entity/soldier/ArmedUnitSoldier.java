@@ -1,5 +1,14 @@
 package linkstr.entity.soldier;
 
+import gameframework.STR.facade.DrawableOverlappableGameEntity;
+import gameframework.STR.facade.STRGameMovable;
+import gameframework.base.Movable;
+import gameframework.base.SpeedVector;
+import gameframework.game.GameMovableDriver;
+import gameframework.game.SpriteManager;
+import gameframework.game.SpriteManagerDefaultImpl;
+import gameframeworkExtension.DrawableUnitSelection;
+
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -12,14 +21,6 @@ import linkstr.utils.AgeFactory;
 import linkstr.utils.ObservableAbstract;
 import linkstr.utils.VisitorClassicForArmedUnit;
 import linkstr.utils.VisitorFunForArmedUnit;
-import gameframework.STR.facade.DrawableOverlappableGameEntity;
-import gameframework.STR.facade.STRGameMovable;
-import gameframework.base.Movable;
-import gameframework.base.SpeedVector;
-import gameframework.game.GameMovableDriver;
-import gameframework.game.SpriteManager;
-import gameframework.game.SpriteManagerDefaultImpl;
-import gameframeworkExtension.DrawableUnitSelection;
 
 public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 		ArmedUnit, DrawableOverlappableGameEntity, Movable {
@@ -29,6 +30,7 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 	protected List<String> equipments = new ArrayList<String>();
 	protected AgeFactory age;
 	
+	private DrawableHealthBar drawableHealthBar = new DrawableHealthBar();
 	private DrawableUnitSelection drawableUnitSelection = new DrawableUnitSelection();
 	protected final SpriteManager spriteManager;
 	public static final int RENDERING_SIZE = 32;
@@ -170,6 +172,7 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 		if(selected == true){
 			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE);
 		}
+		drawableHealthBar.draw(g, getPosition(), RENDERING_SIZE, ((SoldierAbstract)soldier).getTotalHealthPoints(), soldier.getHealthPoints());
 		spriteManager.draw(g, getPosition());
 		
 	}

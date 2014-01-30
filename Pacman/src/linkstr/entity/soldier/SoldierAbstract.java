@@ -2,12 +2,14 @@ package linkstr.entity.soldier;
 
 public abstract class SoldierAbstract implements Soldier {
 	protected String name;
+	protected float totalHealthPoints;
 	protected float healthPoints;
 	protected float force;
 
 	public SoldierAbstract(String nom, float healthPoints, float force) {
 		this.name = nom;
 		this.healthPoints = healthPoints;
+		this.totalHealthPoints = healthPoints;
 		this.force = force;
 	}
 
@@ -19,6 +21,10 @@ public abstract class SoldierAbstract implements Soldier {
 		return healthPoints;
 	}
 
+	public float getTotalHealthPoints() {
+		return totalHealthPoints;
+	}
+	
 	public boolean alive() {
 		return getHealthPoints() > 0;
 	}
