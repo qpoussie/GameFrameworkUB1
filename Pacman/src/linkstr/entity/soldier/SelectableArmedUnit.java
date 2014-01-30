@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import linkstr.utils.AgeFactory;
+import linkstr.utils.Observer;
 import linkstr.utils.VisitorClassicForArmedUnit;
 import linkstr.utils.VisitorFunForArmedUnit;
 import gameframework.STR.facade.DrawableOverlappableGameEntity;
@@ -113,6 +114,10 @@ public class SelectableArmedUnit implements Selectable, ArmedUnit, DrawableOverl
 	@Override
 	public void setSelected(boolean b) {
 		armedUnit.setSelected(b);
+	}
+	
+	public void register(Observer<ArmedUnit> o){
+		armedUnit.register(o);
 	}
 	
 }

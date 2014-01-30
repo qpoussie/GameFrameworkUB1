@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import linkstr.utils.AgeFactory;
+import linkstr.utils.Observer;
 import linkstr.utils.VisitorClassicForArmedUnit;
 import linkstr.utils.VisitorFunForArmedUnit;
 import gameframework.base.SpeedVector;
@@ -21,6 +22,7 @@ public interface ArmedUnit {
 	public void addEquipment(String weaponType);  
 	public void accept(VisitorClassicForArmedUnit v);
 	public <T> T accept(VisitorFunForArmedUnit<T> v);
+	public void register(Observer<ArmedUnit> o);
 	
 	public void setDriver(GameMovableDriver driver);
 	public void setPosition(Point p);

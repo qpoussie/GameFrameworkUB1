@@ -35,6 +35,7 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 	protected boolean movable = true;
 	protected boolean selected = false;
 	protected boolean dead = false;
+	protected int attack = 3; 
 	
 	STRGameMovable gameMovable;
 
@@ -104,6 +105,7 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 	}
 
 	public float strike() {
+		attack = 0;
 		return soldier.strike();
 	}
 
@@ -125,22 +127,43 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 		String spriteType = "";
 		Point tmp = gameMovable.getSpeedVector().getDirection();
 		
-		if(dead){
+		if(!soldier.alive()){
 			spriteType += "dead";
 		} else {
 			movable = true;
-			if (tmp.getX() == 1) {
-				spriteType += "right";
-			} else if (tmp.getX() == -1) {
-				spriteType += "left";
-			} else if (tmp.getY() == 1) {
-				spriteType += "down";
-			} else if (tmp.getY() == -1) {
-				spriteType += "up";
-			} else {
-				spriteType = "static";
-				spriteManager.reset();
-				movable = false;
+			if(attack<3){
+				if (tmp.getX() == 1) {
+					spriteType += "hit-right";
+					attack++;
+				} else if (tmp.getX() == -1) {
+					spriteType += "hit-left";
+					attack++;
+				} else if (tmp.getY() == 1) {
+					spriteType += "hit-down";
+					attack++;
+				} else if (tmp.getY() == -1) {
+					spriteType += "hit-up";
+					attack++;
+				} else {
+					spriteType = "hit-down";
+					attack++;
+					spriteManager.reset();
+					movable = false;
+				}
+			} else { 
+				if (tmp.getX() == 1) {
+					spriteType += "right";
+				} else if (tmp.getX() == -1) {
+					spriteType += "left";
+				} else if (tmp.getY() == 1) {
+					spriteType += "down";
+				} else if (tmp.getY() == -1) {
+					spriteType += "up";
+				} else {
+					spriteType = "static";
+					spriteManager.reset();
+					movable = false;
+				}
 			}
 		}
 		spriteManager.setType(spriteType);
