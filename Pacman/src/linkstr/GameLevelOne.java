@@ -125,7 +125,9 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 			GameMovableDriverDefaultImpl niceLinkDriver = new GameMovableDriverDefaultImpl();
 
 			MoveStrategyStraightLine straightLine = new MoveStrategyStraightLine(new Point(), new Point());
+			//MoveStrategyKeyboardLink straightLine = new MoveStrategyKeyboardLink();
 			niceLinkDriver.setStrategy(straightLine);
+			niceLinkDriver.setmoveBlockerChecker(moveBlockerChecker);
 			niceUnits[i].setDriver(niceLinkDriver);
 			
 			niceUnits[i].setPosition(new Point((12 + i) * SPRITE_SIZE, 28 * SPRITE_SIZE));

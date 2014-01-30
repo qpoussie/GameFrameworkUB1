@@ -1,4 +1,4 @@
-package gameframeworkExtension;
+package linkstr.rule;
 
 import gameframework.base.ObservableValue;
 import gameframework.game.CanvasDefaultImpl;

@@ -1,10 +1,11 @@
 package linkstr;
 
 import gameframework.game.GameLevel;
-import gameframeworkExtension.GameLinkImpl;
 import gameframeworkExtension.Sound;
 
 import java.util.ArrayList;
+
+import linkstr.rule.GameLinkImpl;
 
 public class Main {
 	public static void main(String[] args) {

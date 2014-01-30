@@ -1,7 +1,7 @@
 package gameframeworkExtension;
 
 import gameframework.base.Movable;
-import gameframework.base.MoveStrategyStraightLine;
+import gameframework.game.GameMovableDriver;
 import gameframework.game.GameMovableDriverDefaultImpl;
 import gameframework.game.GameUniverse;
 import gameframework.game.MoveBlockerCheckerDefaultImpl;
@@ -82,10 +82,8 @@ public class MouseController extends MouseAdapter{
 				for(Selectable s : currentSelection){
 					s.setSelected(true);
 					MoveStrategyStraightLineGoodStop strat = new MoveStrategyStraightLineGoodStop(((Movable) s).getPosition(), e.getPoint());
-					GameMovableDriverDefaultImpl niceLinkDriver = new GameMovableDriverDefaultImpl();
-					niceLinkDriver.setStrategy(strat);
-					niceLinkDriver.setmoveBlockerChecker(new MoveBlockerCheckerDefaultImpl());
-					((SelectableArmedUnit)s).setDriver(niceLinkDriver);
+					GameMovableDriver driver = ((SelectableArmedUnit) s).getDriver();
+					((GameMovableDriverDefaultImpl) driver).setStrategy(strat);
 				}
 			}
 			break;
