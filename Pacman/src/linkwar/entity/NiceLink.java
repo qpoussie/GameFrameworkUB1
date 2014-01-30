@@ -82,4 +82,10 @@ public class NiceLink extends GameMovable implements Drawable, GameEntity,
 	public Rectangle getBoundingBox() {
 		return (new Rectangle(0, 0, RENDERING_SIZE, RENDERING_SIZE));
 	}
+
+	@Override
+	public void setSelected(boolean b) {
+		selected = b;
+		
+	}
 }

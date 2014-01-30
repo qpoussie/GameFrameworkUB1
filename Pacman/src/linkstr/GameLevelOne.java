@@ -1,5 +1,6 @@
 package linkstr;
 
+import gameframework.base.MoveStrategyStraightLine;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
 import gameframework.game.GameLevelDefaultImpl;
@@ -88,7 +89,8 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 
 		//init mouseController (cyclic dependency between MouseController and canvas !)
-		MouseController mouseController = new MouseController(universe);
+		MouseController mouseController = MouseController.getInstance();
+		mouseController.setGameUnivers(universe);
 		canvas.addMouseListener(mouseController);
 		canvas.addMouseMotionListener(mouseController);
 		
@@ -123,13 +125,19 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 			niceUnits[i] = new SelectableArmedUnit(new ArmedUnitSoldier(ageFactory, "Simple", "niceLink"+1, canvas, "images/brownLink.png"));
 			
 			GameMovableDriverDefaultImpl niceLinkDriver = new GameMovableDriverDefaultImpl();
-			MoveStrategyKeyboardLink keyStr = new MoveStrategyKeyboardLink();
+			/*MoveStrategyKeyboardLink keyStr = new MoveStrategyKeyboardLink();
+			
 			niceLinkDriver.setStrategy(keyStr);
 			niceLinkDriver.setmoveBlockerChecker(moveBlockerChecker);
 			canvas.addKeyListener(keyStr);
 			
 			
 			niceUnits[i].setDriver(niceLinkDriver);
+			*/
+			MoveStrategyStraightLine straightLine = new MoveStrategyStraightLine(new Point(), new Point());
+			niceLinkDriver.setStrategy(straightLine);
+			niceUnits[i].setDriver(niceLinkDriver);
+			
 			niceUnits[i].setPosition(new Point((12 + i) * SPRITE_SIZE, 28 * SPRITE_SIZE));
 			universe.addGameEntity(niceUnits[i]);
 		}

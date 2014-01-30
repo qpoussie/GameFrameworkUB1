@@ -192,4 +192,10 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 		}
 	}
 
+	@Override
+	public void setSelected(boolean b) {
+		selected = b;
+		
+	}
+
 }

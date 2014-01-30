@@ -15,7 +15,7 @@ public class STROverlapRules extends OverlapRulesApplierExtensionDefaultImpl{
 	
 	@Override
 	public void setUniverse(GameUniverse universe) {
-		// TODO Auto-generated method stub
+		this.universe = universe;
 		
 	}
 

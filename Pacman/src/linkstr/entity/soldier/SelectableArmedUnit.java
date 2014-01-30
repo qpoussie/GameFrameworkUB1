@@ -15,8 +15,9 @@ import gameframeworkExtension.Selectable;
 
 public class SelectableArmedUnit implements Selectable, ArmedUnit, DrawableOverlappableGameEntity, Movable {
 
-	protected ArmedUnit armedUnit;
 	
+	protected ArmedUnit armedUnit;
+		
 	public SelectableArmedUnit(ArmedUnit au){
 		armedUnit = au;
 	}
@@ -107,6 +108,11 @@ public class SelectableArmedUnit implements Selectable, ArmedUnit, DrawableOverl
 	
 	public Rectangle getBoundingBox() {
 		return armedUnit.getBoundingBox();
+	}
+
+	@Override
+	public void setSelected(boolean b) {
+		armedUnit.setSelected(b);
 	}
 	
 }

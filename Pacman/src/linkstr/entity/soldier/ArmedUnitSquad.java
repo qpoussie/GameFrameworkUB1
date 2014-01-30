@@ -19,6 +19,7 @@ public class ArmedUnitSquad extends ObservableAbstract<ArmedUnit> implements
 	protected List<ArmedUnit> armedUnitList = new ArrayList<ArmedUnit>();
 	protected String name;
 	protected AgeFactory age;
+	private boolean selected;
 
 	public ArmedUnitSquad(AgeFactory factory, String name) {
 		this.age = factory;
@@ -195,6 +196,12 @@ public class ArmedUnitSquad extends ObservableAbstract<ArmedUnit> implements
 	@Override
 	public GameMovableDriver getDriver() {//all the units have the same driver
 		return armedUnitList.get(0).getDriver();
+	}
+
+	@Override
+	public void setSelected(boolean b) {
+		selected = b;
+		
 	}
 
 }

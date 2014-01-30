@@ -1,7 +1,6 @@
 package gameframeworkExtension;
 
 import gameframework.base.Drawable;
-import gameframework.base.SpeedVector;
 import gameframework.game.GameEntity;
 
 import java.awt.Color;
@@ -10,17 +9,26 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 /**
- * Une GameEntity Drawable qui sert à afficher le rectangle vert qui suit le drag de la souris lors de la selection
+ * Une GameEntity Singleton Drawable qui sert à afficher le rectangle vert qui suit le drag de la souris lors de la selection
  * 
  */
 public class DrawableGlobalSelection implements Drawable, GameEntity {
 
+	private static DrawableGlobalSelection uniqueInstance;
 	private Point dragOrigine;
 	private Point dragActualPos;
 	private Point position;
 	private Rectangle boundingRect;
 	
-	public DrawableGlobalSelection(Point dragOrigine) {
+	private DrawableGlobalSelection() {}
+	
+	public static DrawableGlobalSelection getInstance(){
+		if(uniqueInstance == null)
+			uniqueInstance = new DrawableGlobalSelection();
+		return uniqueInstance;
+	}
+	
+	public void setOriginePoint(Point dragOrigine){
 		this.dragOrigine = dragOrigine;
 		this.dragActualPos = dragOrigine;
 	}

@@ -32,4 +32,7 @@ public interface ArmedUnit {
 	public void setSpeedVector(SpeedVector m);
 	public void oneStepMove();
 	public GameMovableDriver getDriver();
+	
+	//la nouvelle archi m'oblige a metre cette methode ici hors ca le fait pas trop...
+	public void setSelected(boolean b);
 }

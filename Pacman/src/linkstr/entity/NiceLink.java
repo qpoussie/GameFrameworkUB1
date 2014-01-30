@@ -43,6 +43,7 @@ public class NiceLink extends GameMovable implements Drawable, GameEntity,
 	public void draw(Graphics g) {
 		String spriteType = "";
 		Point tmp = getSpeedVector().getDirection();
+		System.out.println("DSDRAW");
 		
 		if(dead){
 			spriteType += "dead";
@@ -81,5 +82,11 @@ public class NiceLink extends GameMovable implements Drawable, GameEntity,
 
 	public Rectangle getBoundingBox() {
 		return (new Rectangle(0, 0, RENDERING_SIZE, RENDERING_SIZE));
+	}
+
+	@Override
+	public void setSelected(boolean b) {
+		selected = b;
+		
 	}
 }

@@ -9,21 +9,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Une GameEntity Overlappable qui sert à trouver les entitées à selectionner.
+ * Une GameEntity Singleton Overlappable qui sert à trouver les entitées à selectionner.
  * 
  */
 public class OverlappableSelection implements Overlappable, GameEntity {
 	
+	
+	private static OverlappableSelection uniqueInstance;
 	private Point position;
 	private Rectangle boundingBox;
+	private boolean active;
 	private List<Selectable> selectedUnits;
 
-	public OverlappableSelection(DrawableGlobalSelection drawableSelection) {
+	private OverlappableSelection() {}
+	
+	public static OverlappableSelection getInstance(){
+		if(uniqueInstance == null)
+			uniqueInstance = new OverlappableSelection();
+		return uniqueInstance;
+	}
+	
+	public void setPositionAndRectangle(DrawableGlobalSelection drawableSelection){
 		this.position = drawableSelection.getPosition();
 		this.boundingBox = drawableSelection.getRect();
 		selectedUnits = new ArrayList<Selectable>();
 	}
 
+	public void setPositionAndRectangle(Rectangle rectangle) {
+		this.position = rectangle.getLocation();
+		this.boundingBox = rectangle;
+		selectedUnits = new ArrayList<Selectable>();
+	}
+	
 	@Override
 	public Rectangle getBoundingBox() {
 		return boundingBox;
@@ -37,5 +54,14 @@ public class OverlappableSelection implements Overlappable, GameEntity {
 	public void addUnit(Selectable o) {
 		selectedUnits.add(o);
 	}
+
+	public void setActive(boolean b) {
+		active = b;		
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
 
 }
