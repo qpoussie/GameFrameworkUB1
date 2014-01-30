@@ -125,7 +125,7 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 		String spriteType = "";
 		Point tmp = gameMovable.getSpeedVector().getDirection();
 		
-		if(dead){
+		if(!soldier.alive()){
 			spriteType += "dead";
 		} else {
 			movable = true;

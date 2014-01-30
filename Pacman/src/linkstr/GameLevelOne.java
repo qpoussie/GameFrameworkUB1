@@ -12,9 +12,7 @@ import gameframework.game.MoveBlockerCheckerDefaultImpl;
 import gameframework.game.OverlapProcessor;
 import gameframework.game.OverlapProcessorDefaultImpl;
 import gameframeworkExtension.MouseController;
-import gameframeworkExtension.MoveStrategyKeyboardLink;
 import gameframeworkExtension.MoveStrategyRandomBadLink;
-import gameframeworkExtension.Sound;
 
 import java.awt.Canvas;
 import java.awt.Point;
@@ -27,7 +25,7 @@ import linkstr.entity.Sand;
 import linkstr.entity.Tree;
 import linkstr.entity.soldier.ArmedUnitSoldier;
 import linkstr.entity.soldier.SelectableArmedUnit;
-import linkstr.rule.STROverlapRules;
+import linkstr.rule.LinkStrOverlapRules;
 import linkstr.utils.MiddleAgeFactory;
 import linkwar.rule.BadLinkMovableDriver;
 import pacman.rule.PacmanMoveBlockers;
@@ -79,7 +77,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		moveBlockerChecker.setMoveBlockerRules(new PacmanMoveBlockers());
 		
-		STROverlapRules overlapRules = new STROverlapRules();
+		LinkStrOverlapRules overlapRules = new LinkStrOverlapRules();
 		overlapProcessor.setOverlapRules(overlapRules);
 		
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
@@ -122,18 +120,10 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		SelectableArmedUnit[] niceUnits = new SelectableArmedUnit[3];
 		
 		for(int i=0; i<3; i++){
-			niceUnits[i] = new SelectableArmedUnit(new ArmedUnitSoldier(ageFactory, "Simple", "niceLink"+1, canvas, "images/brownLink.png"));
+			niceUnits[i] = new SelectableArmedUnit(new ArmedUnitSoldier(ageFactory, "Simple", "niceLink"+i, canvas, "images/brownLink.png"));
 			
 			GameMovableDriverDefaultImpl niceLinkDriver = new GameMovableDriverDefaultImpl();
-			/*MoveStrategyKeyboardLink keyStr = new MoveStrategyKeyboardLink();
 			
-			niceLinkDriver.setStrategy(keyStr);
-			niceLinkDriver.setmoveBlockerChecker(moveBlockerChecker);
-			canvas.addKeyListener(keyStr);
-			
-			
-			niceUnits[i].setDriver(niceLinkDriver);
-			*/
 			MoveStrategyStraightLine straightLine = new MoveStrategyStraightLine(new Point(), new Point());
 			niceLinkDriver.setStrategy(straightLine);
 			niceUnits[i].setDriver(niceLinkDriver);
@@ -156,6 +146,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 			badlinkSlowDriv.setStrategy(mStrSlow);
 			badlinkSlowDriv.setmoveBlockerChecker(moveBlockerChecker);
 			myBLSlow[i] = new ArmedUnitSoldier(ageFactory, "Simple", "badLink"+i, canvas, "images/darklink.png");
+			
 			myBLSlow[i].setDriver(badlinkSlowDriv);
 			myBLSlow[i].setPosition(new Point(SPRITE_SIZE * (4 + i*2), 1 * SPRITE_SIZE));
 			universe.addGameEntity(myBLSlow[i]);

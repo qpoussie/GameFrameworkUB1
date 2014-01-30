@@ -24,6 +24,7 @@ public class ArmedUnitSquad extends ObservableAbstract<ArmedUnit> implements
 	public ArmedUnitSquad(AgeFactory factory, String name) {
 		this.age = factory;
 		this.name = name;
+		this.selected = false;
 	}
 
 	public String getName() {
@@ -201,7 +202,6 @@ public class ArmedUnitSquad extends ObservableAbstract<ArmedUnit> implements
 	@Override
 	public void setSelected(boolean b) {
 		selected = b;
-		
 	}
 
 }
