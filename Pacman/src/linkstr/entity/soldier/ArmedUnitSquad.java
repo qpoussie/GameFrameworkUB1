@@ -121,62 +121,80 @@ public class ArmedUnitSquad extends ObservableAbstract<ArmedUnit> implements
 
 	@Override
 	public void setDriver(GameMovableDriver driver) {
-		// TODO Auto-generated method stub
+		for(ArmedUnit s: armedUnitList){
+			s.setDriver(driver);
+		}
 		
 	}
 
 	@Override
 	public void setPosition(Point p) {
-		// TODO Auto-generated method stub
+		for(ArmedUnit s: armedUnitList){
+			s.setPosition(p);
+		}
 		
 	}
 
 	@Override
 	public void oneStepMoveAddedBehavior() {
-		// TODO Auto-generated method stub
+		for(ArmedUnit s: armedUnitList){
+			s.oneStepMoveAddedBehavior();
+		}
 		
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
+		for(ArmedUnit s: armedUnitList){
+			s.draw(g);
+		}
 		
 	}
 
 	@Override
-	public Point getPosition() {
-		// TODO Auto-generated method stub
-		return null;
+	public Point getPosition() {//returns the centroid of the squad
+		Point centroid = new Point(0,0);
+		for(ArmedUnit s: armedUnitList){
+			Point p = s.getPosition();
+			centroid.x += p.x;
+			centroid.y += p.y;
+		}
+		int numberOfPoints = armedUnitList.size();
+		centroid.x /= numberOfPoints;
+		centroid.y /= numberOfPoints;
+		
+		return centroid;
 	}
 
 	@Override
 	public Rectangle getBoundingBox() {
-		// TODO Auto-generated method stub
+		//Rectangle boundingBox = new Rectangle(getPosition(), 0,0);
 		return null;
 	}
 
 	@Override
-	public SpeedVector getSpeedVector() {
-		// TODO Auto-generated method stub
-		return null;
+	public SpeedVector getSpeedVector() {//all the units have the same speed
+		return armedUnitList.get(0).getSpeedVector();
 	}
 
 	@Override
 	public void setSpeedVector(SpeedVector m) {
-		// TODO Auto-generated method stub
-		
+		for(ArmedUnit s: armedUnitList){
+			s.setSpeedVector(m);
+		}
 	}
 
 	@Override
 	public void oneStepMove() {
-		// TODO Auto-generated method stub
+		for(ArmedUnit s: armedUnitList){
+			s.oneStepMove();
+		}
 		
 	}
 
 	@Override
-	public GameMovableDriver getDriver() {
-		// TODO Auto-generated method stub
-		return null;
+	public GameMovableDriver getDriver() {//all the units have the same driver
+		return armedUnitList.get(0).getDriver();
 	}
 
 }
