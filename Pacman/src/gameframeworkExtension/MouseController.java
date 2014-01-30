@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 import linkstr.entity.soldier.SelectableArmedUnit;
+import linkstr.rule.MoveStrategyStraightLineGoodStop;
 
 /**
  * Singleton qui permet la gestion de la souris : 
@@ -40,25 +41,29 @@ public class MouseController extends MouseAdapter{
 	}
 
 	public void mousePressed(MouseEvent e){
-		drawableSelection = DrawableGlobalSelection.getInstance();
-		drawableSelection.setOriginePoint(e.getPoint());
-		gameUniverse.addGameEntity(drawableSelection);
+		if(e.getButton() == MouseEvent.BUTTON1){
+			drawableSelection = DrawableGlobalSelection.getInstance();
+			drawableSelection.setOriginePoint(e.getPoint());
+			gameUniverse.addGameEntity(drawableSelection);
+		}
 
 	}
 
 	public void mouseReleased(MouseEvent e){
-		gameUniverse.removeGameEntity(drawableSelection);
-		OverlappableSelection overlappableSelection = OverlappableSelection.getInstance();
-		overlappableSelection.setPositionAndRectangle(drawableSelection);
-		if(overlappableSelection.getBoundingBox() != null){
-			gameUniverse.addGameEntity(overlappableSelection);
-			overlappableSelection.setActive(true);
-
+		if(e.getButton() == MouseEvent.BUTTON1){
+			gameUniverse.removeGameEntity(drawableSelection);
+			OverlappableSelection overlappableSelection = OverlappableSelection.getInstance();
+			overlappableSelection.setPositionAndRectangle(drawableSelection);
+			if(overlappableSelection.getBoundingBox() != null){
+				gameUniverse.addGameEntity(overlappableSelection);
+				overlappableSelection.setActive(true);
+			}
 		}
 	}
 
 	public void mouseDragged(MouseEvent e){
-		drawableSelection.setDragActualPos(e.getPoint());
+		if(drawableSelection != null)
+			drawableSelection.setDragActualPos(e.getPoint());
 	}
 
 	public void mouseClicked(MouseEvent e){
@@ -73,13 +78,15 @@ public class MouseController extends MouseAdapter{
 			break;
 			
 		case MouseEvent.BUTTON3:
-			for(Selectable s : currentSelection){
-				s.setSelected(true);
-				MoveStrategyStraightLine strat = new MoveStrategyStraightLine(((Movable) s).getPosition(), e.getPoint());
-				GameMovableDriverDefaultImpl niceLinkDriver = new GameMovableDriverDefaultImpl();
-				niceLinkDriver.setStrategy(strat);
-				niceLinkDriver.setmoveBlockerChecker(new MoveBlockerCheckerDefaultImpl());
-				((SelectableArmedUnit)s).setDriver(niceLinkDriver);
+			if(currentSelection != null){
+				for(Selectable s : currentSelection){
+					s.setSelected(true);
+					MoveStrategyStraightLineGoodStop strat = new MoveStrategyStraightLineGoodStop(((Movable) s).getPosition(), e.getPoint());
+					GameMovableDriverDefaultImpl niceLinkDriver = new GameMovableDriverDefaultImpl();
+					niceLinkDriver.setStrategy(strat);
+					niceLinkDriver.setmoveBlockerChecker(new MoveBlockerCheckerDefaultImpl());
+					((SelectableArmedUnit)s).setDriver(niceLinkDriver);
+				}
 			}
 			break;
 		}
