@@ -1,7 +1,7 @@
 package linkstr;
 
-import gameframework.game.GameDefaultImpl;
 import gameframework.game.GameLevel;
+import gameframeworkExtension.GameLinkImpl;
 import gameframeworkExtension.Sound;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class Main {
 		Sound s = new Sound("sounds/background.wav");
 		s.loop();
 		
-		GameDefaultImpl g = new GameDefaultImpl();
+		GameLinkImpl g = new GameLinkImpl();
 		ArrayList<GameLevel> levels = new ArrayList<GameLevel>();
 
 		levels.add(new GameLevelOne(g)); // only one level is available at this time

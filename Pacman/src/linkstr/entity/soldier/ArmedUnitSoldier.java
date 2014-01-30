@@ -35,6 +35,7 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 	protected boolean movable = true;
 	protected boolean selected = false;
 	protected boolean dead = false;
+	protected boolean attack = false; 
 	
 	STRGameMovable gameMovable;
 
@@ -104,6 +105,7 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 	}
 
 	public float strike() {
+		attack = true;
 		return soldier.strike();
 	}
 
@@ -129,18 +131,39 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 			spriteType += "dead";
 		} else {
 			movable = true;
-			if (tmp.getX() == 1) {
-				spriteType += "right";
-			} else if (tmp.getX() == -1) {
-				spriteType += "left";
-			} else if (tmp.getY() == 1) {
-				spriteType += "down";
-			} else if (tmp.getY() == -1) {
-				spriteType += "up";
-			} else {
-				spriteType = "static";
-				spriteManager.reset();
-				movable = false;
+			if(attack){
+				if (tmp.getX() == 1) {
+					spriteType += "hit-right";
+					attack = false;
+				} else if (tmp.getX() == -1) {
+					spriteType += "hit-left";
+					attack = false;
+				} else if (tmp.getY() == 1) {
+					spriteType += "hit-down";
+					attack = false;
+				} else if (tmp.getY() == -1) {
+					spriteType += "hit-up";
+					attack = false;
+				} else {
+					spriteType = "hit-down";
+					attack = false;
+					spriteManager.reset();
+					movable = false;
+				}
+			} else { 
+				if (tmp.getX() == 1) {
+					spriteType += "right";
+				} else if (tmp.getX() == -1) {
+					spriteType += "left";
+				} else if (tmp.getY() == 1) {
+					spriteType += "down";
+				} else if (tmp.getY() == -1) {
+					spriteType += "up";
+				} else {
+					spriteType = "static";
+					spriteManager.reset();
+					movable = false;
+				}
 			}
 		}
 		spriteManager.setType(spriteType);
