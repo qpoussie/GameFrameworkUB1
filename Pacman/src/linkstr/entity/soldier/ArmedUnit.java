@@ -34,7 +34,5 @@ public interface ArmedUnit {
 	public void setSpeedVector(SpeedVector m);
 	public void oneStepMove();
 	public GameMovableDriver getDriver();
-	
-	//la nouvelle archi m'oblige a mettre cette methode ici hors ca le fait pas trop...
 	public void setSelected(boolean b);
 }
