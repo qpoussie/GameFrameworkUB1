@@ -26,8 +26,10 @@ import linkstr.entity.Tree;
 import linkstr.entity.soldier.ArmedUnitSoldier;
 import linkstr.entity.soldier.SelectableArmedUnit;
 import linkstr.rule.LinkStrOverlapRules;
+
+import linkstr.rule.BadLinkMovableDriver;
+
 import linkstr.utils.MiddleAgeFactory;
-import linkwar.rule.BadLinkMovableDriver;
 import pacman.rule.PacmanMoveBlockers;
 
 public class GameLevelOne extends GameLevelDefaultImpl {
@@ -117,9 +119,9 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		
 		MiddleAgeFactory ageFactory = new MiddleAgeFactory();
 		
-		SelectableArmedUnit[] niceUnits = new SelectableArmedUnit[3];
+		SelectableArmedUnit[] niceUnits = new SelectableArmedUnit[5];
 		
-		for(int i=0; i<3; i++){
+		for(int i=0; i<5; i++){
 			niceUnits[i] = new SelectableArmedUnit(new ArmedUnitSoldier(ageFactory, "Simple", "niceLink"+i, canvas, "images/brownLink.png"));
 			
 			GameMovableDriverDefaultImpl niceLinkDriver = new GameMovableDriverDefaultImpl();

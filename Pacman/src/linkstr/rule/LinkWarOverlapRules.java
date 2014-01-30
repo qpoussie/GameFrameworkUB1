@@ -1,4 +1,4 @@
-package linkwar.rule;
+package linkstr.rule;
 
 import java.util.Vector;
 
