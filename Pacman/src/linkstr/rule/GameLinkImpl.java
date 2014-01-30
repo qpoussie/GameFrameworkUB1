@@ -1,10 +1,12 @@
-package gameframeworkExtension;
+package linkstr.rule;
 
 import gameframework.base.ObservableValue;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
 import gameframework.game.GameLevel;
 import gameframework.game.GameLevelDefaultImpl;
+import gameframeworkExtension.GameLevelLinkImpl;
+import gameframeworkExtension.Sound;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
@@ -44,7 +46,7 @@ public class GameLinkImpl implements Game, Observer {
 	protected ObservableValue<Boolean> endOfGame = null;
 
 	private Frame f;
-	private GameLevelDefaultImpl currentPlayedLevel = null;
+	private GameLevelLinkImpl currentPlayedLevel = null;
 
 	protected int levelNumber;
 	protected ArrayList<GameLevel> gameLevels;
@@ -57,11 +59,9 @@ public class GameLinkImpl implements Game, Observer {
 	protected Label currentLevelValue;
 
 	public GameLinkImpl() {
-		for (int i = 0; i < MAX_NUMBER_OF_PLAYER; ++i) {
-			score[i] = new ObservableValue<Integer>(0);
-			linkAlive[i] = new ObservableValue<Integer>(0);
-			badLinkAlive[i] = new ObservableValue<Integer>(0);
-		}
+		score[0] = new ObservableValue<Integer>(0);
+		linkAlive[0] = new ObservableValue<Integer>(0);
+		badLinkAlive[0] = new ObservableValue<Integer>(0);
 		lifeText = new Label("Soldier Alive:");
 		badLifeText = new Label("Enemy Soldier Alive:");
 		scoreText = new Label("Score:");
@@ -158,8 +158,10 @@ public class GameLinkImpl implements Game, Observer {
 		c.add(linkAliveValue);
 		c.add(badLifeText);
 		c.add(badLinkAliveValue);
+		/*
 		c.add(scoreText);
 		c.add(scoreValue);
+		*/
 		c.add(currentLevel);
 		c.add(currentLevelValue);
 		c.add(information);
@@ -172,14 +174,15 @@ public class GameLinkImpl implements Game, Observer {
 	}
 
 	public void start() {
-		for (int i = 0; i < MAX_NUMBER_OF_PLAYER; ++i) {
-			score[i].addObserver(this);
-			linkAlive[i].addObserver(this);
-			linkAlive[i].setValue(0);
-			score[i].setValue(0);
-		}
+		score[0].addObserver(this);
+		badLinkAlive[0].addObserver(this);
+		badLinkAlive[0].setValue(1);
+		linkAlive[0].addObserver(this);
+		linkAlive[0].setValue(1);
+		score[0].setValue(0);
 		levelNumber = 0;
 		for (GameLevel level : gameLevels) {
+		System.out.println("in for levels");
 			endOfGame = new ObservableValue<Boolean>(false);
 			endOfGame.addObserver(this);
 			try {
@@ -187,12 +190,13 @@ public class GameLinkImpl implements Game, Observer {
 					currentPlayedLevel.interrupt();
 					currentPlayedLevel = null;
 				}
-				currentPlayedLevel = (GameLevelDefaultImpl) level;
+				currentPlayedLevel = (GameLevelLinkImpl) level;
 				levelNumber++;
 				currentLevelValue.setText(Integer.toString(levelNumber));
 				currentPlayedLevel.start();
 				currentPlayedLevel.join();
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 
@@ -270,5 +274,13 @@ public class GameLinkImpl implements Game, Observer {
 					endOfGame();
 			}
 		}
+	}
+
+	public ObservableValue<Integer>[] getLinkAlive() {
+		return linkAlive;
+	}
+	
+	public ObservableValue<Integer>[] getBadLinkAlive() {
+		return badLinkAlive;
 	}
 }

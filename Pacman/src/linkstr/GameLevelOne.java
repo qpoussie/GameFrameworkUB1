@@ -11,8 +11,8 @@ import gameframework.game.MoveBlockerChecker;
 import gameframework.game.MoveBlockerCheckerDefaultImpl;
 import gameframework.game.OverlapProcessor;
 import gameframework.game.OverlapProcessorDefaultImpl;
+import gameframeworkExtension.GameLevelLinkImpl;
 import gameframeworkExtension.MouseController;
-import gameframeworkExtension.MoveStrategyRandomBadLink;
 
 import java.awt.Canvas;
 import java.awt.Point;
@@ -26,12 +26,14 @@ import linkstr.entity.Tree;
 import linkstr.entity.soldier.ArmedUnitSoldier;
 import linkstr.entity.soldier.SelectableArmedUnit;
 import linkstr.rule.BadLinkMovableDriver;
+import linkstr.rule.GameLinkImpl;
 import linkstr.rule.LinkStrOverlapRules;
 import linkstr.rule.MoveStrategyDeadUnit;
+import linkstr.rule.MoveStrategyRandomBadLink;
 import linkstr.utils.MiddleAgeFactory;
 import pacman.rule.PacmanMoveBlockers;
 
-public class GameLevelOne extends GameLevelDefaultImpl {
+public class GameLevelOne extends GameLevelLinkImpl {
 	Canvas canvas;
 	
 	static Random random = new Random();
@@ -78,7 +80,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		moveBlockerChecker.setMoveBlockerRules(new PacmanMoveBlockers());
 		
-		LinkStrOverlapRules overlapRules = new LinkStrOverlapRules();
+		LinkStrOverlapRules overlapRules = new LinkStrOverlapRules(linkAlive[0], badLinkAlive[0]);
 		overlapProcessor.setOverlapRules(overlapRules);
 		
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
@@ -120,29 +122,31 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		
 		SelectableArmedUnit[] niceUnits = new SelectableArmedUnit[5];
 
-		GameMovableDriverDefaultImpl niceLinkDriver = new GameMovableDriverDefaultImpl();
-		MoveStrategyStraightLine straightLine = new MoveStrategyStraightLine(new Point(), new Point());
-		
 		
 		for(int i=0; i<5; i++){
 			niceUnits[i] = new SelectableArmedUnit(new ArmedUnitSoldier(ageFactory, "Simple", "niceLink"+i, canvas, "images/brownLink.png"));
-						
+
+			GameMovableDriverDefaultImpl niceLinkDriver = new GameMovableDriverDefaultImpl();
+			MoveStrategyStraightLine straightLine = new MoveStrategyStraightLine(new Point(), new Point());
+			
 			niceLinkDriver.setStrategy(straightLine);
+			niceLinkDriver.setmoveBlockerChecker(moveBlockerChecker);
 			niceUnits[i].setDriver(niceLinkDriver);
 			
 			niceUnits[i].setPosition(new Point((12 + i) * SPRITE_SIZE, 28 * SPRITE_SIZE));
 			universe.addGameEntity(niceUnits[i]);
 		}
-
+		
+		
 		
 		// Enemies definition and inclusion in the universe
 		ArmedUnitSoldier[] myBLSlow = new ArmedUnitSoldier[10];
-		BadLinkMovableDriver badlinkSlowDriv = new BadLinkMovableDriver();
-		MoveStrategyRandomBadLink mStrSlow = new MoveStrategyRandomBadLink();
 		
 		//bad Link slow
 		for(int i = 0; i < 10; i++){
-			
+
+			BadLinkMovableDriver badlinkSlowDriv = new BadLinkMovableDriver();
+			MoveStrategyRandomBadLink mStrSlow = new MoveStrategyRandomBadLink();
 			badlinkSlowDriv.setLinkSpeed(random.nextInt(10)+1);
 			mStrSlow.setChangeFreq(40);
 			
@@ -155,10 +159,13 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 			
 			universe.addGameEntity(myBLSlow[i]);
 		}
+		linkAlive[0].setValue(5);
+		badLinkAlive[0].setValue(10);
 	}
 
-	public GameLevelOne(Game g) {
+	public GameLevelOne(GameLinkImpl g) {
 		super(g);
+		GameLinkImpl concreteGame = (GameLinkImpl)g;
 		canvas = g.getCanvas();
 	}
 

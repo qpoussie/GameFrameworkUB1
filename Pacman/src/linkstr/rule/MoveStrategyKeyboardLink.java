@@ -1,8 +1,9 @@
-package gameframeworkExtension;
+package linkstr.rule;
 
 import gameframework.base.MoveStrategy;
 import gameframework.base.SpeedVector;
 import gameframework.base.SpeedVectorDefaultImpl;
+import gameframeworkExtension.Sound;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
