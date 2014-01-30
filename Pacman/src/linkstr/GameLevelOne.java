@@ -88,7 +88,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 
 		//init mouseController (cyclic dependency between MouseController and canvas !)
 		MouseController mouseController = MouseController.getInstance();
-		mouseController.setUniverse(universe);
+		mouseController.setGameUnivers(universe);
 		canvas.addMouseListener(mouseController);
 		canvas.addMouseMotionListener(mouseController);
 		

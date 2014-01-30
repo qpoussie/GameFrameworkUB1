@@ -1,10 +1,9 @@
 package gameframeworkExtension;
 
-import gameframework.STR.facade.DrawableOverlappableGameEntity;
+import gameframework.base.Movable;
 import gameframework.base.MoveStrategyStraightLine;
 import gameframework.game.GameMovableDriverDefaultImpl;
 import gameframework.game.GameUniverse;
-import gameframework.game.MoveBlockerChecker;
 import gameframework.game.MoveBlockerCheckerDefaultImpl;
 
 import java.awt.Rectangle;
@@ -44,8 +43,9 @@ public class MouseController extends MouseAdapter{
 		drawableSelection = DrawableGlobalSelection.getInstance();
 		drawableSelection.setOriginePoint(e.getPoint());
 		gameUniverse.addGameEntity(drawableSelection);
+
 	}
-	
+
 	public void mouseReleased(MouseEvent e){
 		gameUniverse.removeGameEntity(drawableSelection);
 		OverlappableSelection overlappableSelection = OverlappableSelection.getInstance();
@@ -53,9 +53,10 @@ public class MouseController extends MouseAdapter{
 		if(overlappableSelection.getBoundingBox() != null){
 			gameUniverse.addGameEntity(overlappableSelection);
 			overlappableSelection.setActive(true);
+
 		}
 	}
-	
+
 	public void mouseDragged(MouseEvent e){
 		drawableSelection.setDragActualPos(e.getPoint());
 	}
@@ -74,7 +75,7 @@ public class MouseController extends MouseAdapter{
 		case MouseEvent.BUTTON3:
 			for(Selectable s : currentSelection){
 				s.setSelected(true);
-				MoveStrategyStraightLine strat = new MoveStrategyStraightLine(((DrawableOverlappableGameEntity) s).getPosition(), e.getPoint());
+				MoveStrategyStraightLine strat = new MoveStrategyStraightLine(((Movable) s).getPosition(), e.getPoint());
 				GameMovableDriverDefaultImpl niceLinkDriver = new GameMovableDriverDefaultImpl();
 				niceLinkDriver.setStrategy(strat);
 				niceLinkDriver.setmoveBlockerChecker(new MoveBlockerCheckerDefaultImpl());
@@ -85,10 +86,6 @@ public class MouseController extends MouseAdapter{
 	}
 	
 	
-	
-	public void setUniverse(GameUniverse universe) {
-		gameUniverse = universe;
-	}
 	
 	public void setSelection(List<Selectable> currentSelection){
 		if(this.currentSelection != null)

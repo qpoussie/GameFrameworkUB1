@@ -17,8 +17,7 @@ public class SelectableArmedUnit implements Selectable, ArmedUnit, DrawableOverl
 
 	
 	protected ArmedUnit armedUnit;
-	private boolean selected = false;
-	
+		
 	public SelectableArmedUnit(ArmedUnit au){
 		armedUnit = au;
 	}
