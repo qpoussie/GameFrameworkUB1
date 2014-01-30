@@ -13,6 +13,7 @@ import gameframework.game.OverlapProcessorDefaultImpl;
 import gameframeworkExtension.MouseController;
 import gameframeworkExtension.MoveStrategyKeyboardLink;
 import gameframeworkExtension.MoveStrategyRandomBadLink;
+import gameframeworkExtension.Sound;
 
 import java.awt.Canvas;
 import java.awt.Point;
@@ -71,6 +72,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 
 	@Override
 	protected void init() {
+
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
