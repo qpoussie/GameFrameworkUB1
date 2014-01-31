@@ -35,7 +35,6 @@ public abstract class GameLevelLinkImpl extends Thread implements GameLevel {
 
 	@Override
 	public void start() {
-		System.out.println("start");
 		endOfGame = g.endOfGame();
 		init();
 		super.start();
@@ -51,9 +50,7 @@ public abstract class GameLevelLinkImpl extends Thread implements GameLevel {
 		stopGameLoop = false;
 		// main game loop :
 		long start;
-		System.out.println("avant boucle");
 		while (!stopGameLoop && !this.isInterrupted()) {
-			System.out.println("main boucle");
 			start = new Date().getTime();
 			gameBoard.paint();
 			universe.allOneStepMoves();

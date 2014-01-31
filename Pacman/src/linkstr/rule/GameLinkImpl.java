@@ -182,7 +182,6 @@ public class GameLinkImpl implements Game, Observer {
 		score[0].setValue(0);
 		levelNumber = 0;
 		for (GameLevel level : gameLevels) {
-		System.out.println("in for levels");
 			endOfGame = new ObservableValue<Boolean>(false);
 			endOfGame.addObserver(this);
 			try {

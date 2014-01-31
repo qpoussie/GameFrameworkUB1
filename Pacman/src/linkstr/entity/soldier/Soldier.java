@@ -3,6 +3,7 @@ package linkstr.entity.soldier;
 public interface Soldier {
 	public String getName();
 	public float getHealthPoints();
+	public float getTotalHealthPoints();
 	public boolean alive();
 	public void heal();
 	
@@ -12,4 +13,5 @@ public interface Soldier {
 	 */
 	public boolean parry(float force);
 	public float strike();
+
 }

@@ -179,7 +179,7 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 			focused = false;
 		}
 
-		drawableHealthBar.draw(g, getPosition(), RENDERING_SIZE, ((SoldierAbstract)soldier).getTotalHealthPoints(), soldier.getHealthPoints());
+		drawableHealthBar.draw(g, getPosition(), RENDERING_SIZE, soldier.getTotalHealthPoints(), soldier.getHealthPoints());
 
 		spriteManager.draw(g, getPosition());
 		

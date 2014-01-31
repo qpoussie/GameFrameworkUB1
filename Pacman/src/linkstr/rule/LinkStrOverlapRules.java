@@ -2,6 +2,7 @@ package linkstr.rule;
 
 import java.util.Vector;
 
+import linkstr.entity.Arrow;
 import linkstr.entity.soldier.ArmedUnitSoldier;
 import linkstr.entity.soldier.SelectableArmedUnit;
 import gameframework.base.ObservableValue;
@@ -35,7 +36,6 @@ public class LinkStrOverlapRules extends OverlapRulesApplierExtensionDefaultImpl
 			enemy.parry(ally.strike());
 			ally.parry(enemy.strike());
 			
-			
 			if(!enemy.alive())
 				badSoldier.setValue(badSoldier.getValue()-1);
 			 	//System.out.println("enemy "+enemy.getName()+" est mort.\n");
@@ -43,6 +43,10 @@ public class LinkStrOverlapRules extends OverlapRulesApplierExtensionDefaultImpl
 				soldier.setValue(soldier.getValue()-1);				
 				//System.out.println("allié "+ally.getName()+" est mort.\n");
 		}
+	}
+	
+	public void overlapRule(SelectableArmedUnit ally, Arrow weapon){
+		ally.addEquipment("Offensive");
 	}
 
 }

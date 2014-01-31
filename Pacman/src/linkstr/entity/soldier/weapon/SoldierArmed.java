@@ -26,6 +26,10 @@ public abstract class SoldierArmed<W extends Weapon> implements Soldier {
 		return soldier.getHealthPoints();
 	}
 
+	public float getTotalHealthPoints(){
+		return soldier.getHealthPoints();
+	}
+	
 	public boolean alive() {
 		return soldier.alive();
 	}

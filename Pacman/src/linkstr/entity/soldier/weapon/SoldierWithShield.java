@@ -7,4 +7,5 @@ public class SoldierWithShield extends SoldierArmed<Shield> {
 		super(s, new Shield());
 	}
 
+
 }
