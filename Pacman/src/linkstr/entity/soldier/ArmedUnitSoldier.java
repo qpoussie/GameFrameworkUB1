@@ -33,12 +33,9 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 	protected AgeFactory age;
 	
 	private DrawableHealthBar drawableHealthBar = new DrawableHealthBar();
-	private DrawableUnitSelection drawableUnitSelection = new DrawableUnitSelection();
 	protected final SpriteManager spriteManager;
 	public static final int RENDERING_SIZE = 32;
 	protected boolean movable = true;
-	protected boolean selected = false;
-	protected boolean focused = false;
 	protected boolean dead = false;
 	protected int attack = 3; 
 	
@@ -172,13 +169,6 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 			}
 		}
 		spriteManager.setType(spriteType);
-		if(selected == true){
-			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE, Color.green);
-		}
-		if(focused == true){
-			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE, Color.green);
-			focused = false;
-		}
 
 		drawableHealthBar.draw(g, getPosition(), RENDERING_SIZE, soldier.getTotalHealthPoints(), soldier.getHealthPoints());
 
@@ -228,20 +218,22 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 		}
 	}
 
+
+	@Override
+	public boolean isOffensive() {
+		return soldier.getClass().equals(SoldierWithSword.class) ;
+	}
+
 	@Override
 	public void setSelected(boolean b) {
-		selected = b;
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void setFocused(boolean b) {
-		focused = b;
-	}
-
-	@Override
-	public boolean isOffensive() {
-		return soldier.getClass().equals(SoldierWithSword.class) ;
+		// TODO Auto-generated method stub
+		
 	}
 
 }

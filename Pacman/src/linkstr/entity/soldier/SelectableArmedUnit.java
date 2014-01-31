@@ -4,9 +4,11 @@ import gameframework.STR.facade.DrawableOverlappableGameEntity;
 import gameframework.base.Movable;
 import gameframework.base.SpeedVector;
 import gameframework.game.GameMovableDriver;
+import gameframeworkExtension.DrawableUnitSelection;
 import gameframeworkExtension.Focusable;
 import gameframeworkExtension.Selectable;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -21,6 +23,10 @@ public class SelectableArmedUnit implements Selectable, Focusable, ArmedUnit, Dr
 
 	
 	protected ArmedUnit armedUnit;
+	private boolean selected = false;
+	private DrawableUnitSelection drawableUnitSelection = new DrawableUnitSelection();
+	private int RENDERING_SIZE = 32;
+	private boolean focused = false;
 		
 	public SelectableArmedUnit(ArmedUnit au){
 		armedUnit = au;
@@ -70,6 +76,12 @@ public class SelectableArmedUnit implements Selectable, Focusable, ArmedUnit, Dr
 
 
 	public void draw(Graphics g) {
+		if(selected == true){
+			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE, Color.green);
+		}
+		if(focused == true){
+			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE, Color.green);
+		}
 		armedUnit.draw(g);
 	}
 
@@ -116,7 +128,7 @@ public class SelectableArmedUnit implements Selectable, Focusable, ArmedUnit, Dr
 
 	@Override
 	public void setSelected(boolean b) {
-		armedUnit.setSelected(b);
+		selected = b;
 	}
 	
 	public void register(Observer<ArmedUnit> o){
@@ -125,7 +137,7 @@ public class SelectableArmedUnit implements Selectable, Focusable, ArmedUnit, Dr
 
 	@Override
 	public void setFocused(boolean b) {
-		armedUnit.setFocused(b);
+		focused  = b;
 		
 	}
 	
