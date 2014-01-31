@@ -49,13 +49,12 @@ public class LinkStrOverlapRules extends OverlapRulesApplierExtensionDefaultImpl
 				universe.addGameEntity(new Grave(canvas , true, enemy.getPosition()));				
 				//System.out.println("enemy "+enemy.getName()+" est mort.\n");
 			}
-			{
-				if(!ally.alive()){
-					soldier.setValue(soldier.getValue()-1);
-					universe.removeGameEntity(ally);	
-					universe.addGameEntity(new Grave( canvas , false, ally.getPosition()));			
-					//System.out.println("allié "+ally.getName()+" est mort.\n");
-				}
+			if(!ally.alive()){
+				soldier.setValue(soldier.getValue()-1);
+				universe.removeGameEntity(ally);	
+				universe.addGameEntity(new Grave( canvas , false, ally.getPosition()));			
+				//System.out.println("allié "+ally.getName()+" est mort.\n");
+
 			}
 		}
 	}	

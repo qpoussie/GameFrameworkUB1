@@ -4,7 +4,6 @@ import gameframework.base.ObservableValue;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
 import gameframework.game.GameLevel;
-import gameframework.game.GameLevelDefaultImpl;
 import gameframeworkExtension.GameLevelLinkImpl;
 import gameframeworkExtension.Sound;
 
@@ -175,11 +174,11 @@ public class GameLinkImpl implements Game, Observer {
 
 	public void start() {
 		score[0].addObserver(this);
-		badLinkAlive[0].addObserver(this);
-		badLinkAlive[0].setValue(1);
 		linkAlive[0].addObserver(this);
+		badLinkAlive[0].addObserver(this);
 		linkAlive[0].setValue(1);
-		score[0].setValue(0);
+		badLinkAlive[0].setValue(1);
+		score[0].setValue(50);
 		levelNumber = 0;
 		for (GameLevel level : gameLevels) {
 			endOfGame = new ObservableValue<Boolean>(false);
@@ -222,6 +221,10 @@ public class GameLinkImpl implements Game, Observer {
 	public ObservableValue<Integer>[] score() {
 		return score;
 	}
+	
+	public ObservableValue<Integer>[] enemyLife() {
+		return badLinkAlive;
+	}
 
 	public ObservableValue<Integer>[] life() {
 		return linkAlive;
@@ -236,6 +239,8 @@ public class GameLinkImpl implements Game, Observer {
 	}
 
 	public void update(Observable o, Object arg) {
+		System.out.println("enemy : " + badLinkAlive[0].getValue());
+		System.out.println("ally : " + linkAlive[0].getValue());
 		if (o == endOfGame) {
 			if (endOfGame.getValue()) {
 				informationValue.setText("You win");
@@ -259,27 +264,18 @@ public class GameLinkImpl implements Game, Observer {
 						}
 					}
 				}
-				for (ObservableValue<Integer> scoreObservable : score) {
-					if (o == scoreObservable) {
-						scoreValue
-								.setText(Integer
-										.toString(((ObservableValue<Integer>) o)
-												.getValue()));
-					}
-				}
 			}
 			else{
-				if(badLinkAlive[0].getValue() == 0)
-					endOfGame();
+				int enemyLives = ((ObservableValue<Integer>) o).getValue();
+				badLinkAliveValue.setText(Integer.toString(enemyLives));
+				if(enemyLives == 0){
+					informationValue.setText("You win");
+					Sound winSound = new Sound("sounds/win.wav");
+					winSound.play();
+					currentPlayedLevel.interrupt();
+					currentPlayedLevel.end();
+				}
 			}
 		}
-	}
-
-	public ObservableValue<Integer>[] getLinkAlive() {
-		return linkAlive;
-	}
-	
-	public ObservableValue<Integer>[] getBadLinkAlive() {
-		return badLinkAlive;
 	}
 }

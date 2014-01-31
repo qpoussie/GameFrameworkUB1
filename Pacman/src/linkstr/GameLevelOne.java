@@ -162,9 +162,9 @@ public class GameLevelOne extends GameLevelLinkImpl {
 			universe.addGameEntity(myBLSlow[i]);
 		}
 		
-		
-		linkAlive[0].setValue(5);
+
 		badLinkAlive[0].setValue(10);
+		linkAlive[0].setValue(5);
 		
 		universe.addGameEntity(new OffensiveWeapon(canvas, new Point(12 * SPRITE_SIZE, 15 * SPRITE_SIZE)));
 		universe.addGameEntity(new OffensiveWeapon(canvas, new Point(15 * SPRITE_SIZE, 15 * SPRITE_SIZE)));

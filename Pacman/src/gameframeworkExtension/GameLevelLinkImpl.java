@@ -29,13 +29,13 @@ public abstract class GameLevelLinkImpl extends Thread implements GameLevel {
 
 	public GameLevelLinkImpl(GameLinkImpl g) {
 		this.g = g;
-		this.linkAlive = g.getLinkAlive();
-		this.badLinkAlive = g.getBadLinkAlive();
 	}
 
 	@Override
 	public void start() {
 		endOfGame = g.endOfGame();
+		linkAlive = g.life();
+		badLinkAlive = g.enemyLife();
 		init();
 		super.start();
 		try {
