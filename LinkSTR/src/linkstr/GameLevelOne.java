@@ -27,11 +27,11 @@ import linkstr.entity.soldier.FocusableArmedUnit;
 import linkstr.entity.soldier.SelectableArmedUnit;
 import linkstr.rule.BadLinkMovableDriver;
 import linkstr.rule.GameLinkImpl;
+import linkstr.rule.LinkMoveBlockers;
 import linkstr.rule.LinkStrOverlapRules;
 import linkstr.rule.MoveStrategyRandomBadLink;
 import linkstr.rule.MoveStrategyRandomFairy;
 import linkstr.utils.MiddleAgeFactory;
-import pacman.rule.PacmanMoveBlockers;
 
 public class GameLevelOne extends GameLevelLinkImpl {
 	Canvas canvas;
@@ -78,7 +78,7 @@ public class GameLevelOne extends GameLevelLinkImpl {
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
-		moveBlockerChecker.setMoveBlockerRules(new PacmanMoveBlockers());
+		moveBlockerChecker.setMoveBlockerRules(new LinkMoveBlockers());
 		
 		LinkStrOverlapRules overlapRules = new LinkStrOverlapRules(linkAlive[0], badLinkAlive[0]);
 		overlapProcessor.setOverlapRules(overlapRules);

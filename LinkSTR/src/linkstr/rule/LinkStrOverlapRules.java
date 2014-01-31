@@ -7,6 +7,7 @@ import gameframework.base.Overlap;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.GameUniverse;
 import gameframeworkExtension.OverlapRulesApplierExtensionDefaultImpl;
+import gameframeworkExtension.Sound;
 
 import java.util.Vector;
 
@@ -21,6 +22,9 @@ public class LinkStrOverlapRules extends OverlapRulesApplierExtensionDefaultImpl
 	private final ObservableValue<Integer> soldier;
 	private final ObservableValue<Integer> badSoldier;
 	private final Canvas canvas = new CanvasDefaultImpl();
+	private final Sound deathSound = new Sound("sounds/die.wav");
+	private final Sound swordSound = new Sound("sounds/sword.wav");
+	private final Sound healSound = new Sound("sounds/heal.wav");
 
 	public LinkStrOverlapRules(ObservableValue<Integer> soldier, ObservableValue<Integer> badSoldier){
 		this.soldier = soldier;
@@ -50,6 +54,7 @@ public class LinkStrOverlapRules extends OverlapRulesApplierExtensionDefaultImpl
 				//System.out.println("enemy "+enemy.getName()+" est mort.\n");
 			}
 			if(!ally.alive()){
+				deathSound.play();
 				soldier.setValue(soldier.getValue()-1);
 				universe.removeGameEntity(ally);	
 				universe.addGameEntity(new Grave( canvas , false, ally.getPosition()));			
@@ -61,6 +66,7 @@ public class LinkStrOverlapRules extends OverlapRulesApplierExtensionDefaultImpl
 	public void overlapRule(FocusableArmedUnit soldier, Fairy heal){
 		if(soldier.getHealthPoints() < 100){
 			this.universe.removeGameEntity(heal);
+			healSound.play();
 			soldier.heal();
 		}
 	}
@@ -68,6 +74,7 @@ public class LinkStrOverlapRules extends OverlapRulesApplierExtensionDefaultImpl
 	public void overlapRule(SelectableArmedUnit soldier, Fairy heal){
 		if(soldier.getHealthPoints() < 100){
 			this.universe.removeGameEntity(heal);
+			healSound.play();
 			soldier.heal(); 
 		}
 	}
@@ -75,6 +82,7 @@ public class LinkStrOverlapRules extends OverlapRulesApplierExtensionDefaultImpl
 	public void overlapRule(FocusableArmedUnit soldier, OffensiveWeapon weapon){
 		if(!soldier.isOffensive()){
 			this.universe.removeGameEntity(weapon);
+			swordSound.play();
 			soldier.addEquipment("Offensive");
 		}
 	}
@@ -82,6 +90,7 @@ public class LinkStrOverlapRules extends OverlapRulesApplierExtensionDefaultImpl
 	public void overlapRule(SelectableArmedUnit soldier, OffensiveWeapon weapon){
 		if(!soldier.isOffensive()){
 			this.universe.removeGameEntity(weapon);
+			swordSound.play();
 			soldier.addEquipment("Offensive");
 		}
 	}
