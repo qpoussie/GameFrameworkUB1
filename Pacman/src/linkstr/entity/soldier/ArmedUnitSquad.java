@@ -20,6 +20,7 @@ public class ArmedUnitSquad extends ObservableAbstract<ArmedUnit> implements
 	protected String name;
 	protected AgeFactory age;
 	private boolean selected;
+	private boolean focused;
 
 	public ArmedUnitSquad(AgeFactory factory, String name) {
 		this.age = factory;
@@ -202,6 +203,11 @@ public class ArmedUnitSquad extends ObservableAbstract<ArmedUnit> implements
 	@Override
 	public void setSelected(boolean b) {
 		selected = b;
+	}
+
+	@Override
+	public void setFocused(boolean b) {
+		focused = b;		
 	}
 
 }

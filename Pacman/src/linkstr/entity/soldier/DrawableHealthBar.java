@@ -19,7 +19,7 @@ public class DrawableHealthBar {
 			barColor = barColors[0];
 		else if(ratio > 0.6)
 			barColor = barColors[1];
-		else if(ratio > 0.4)
+		else if(ratio > 0.3)
 			barColor = barColors[2];
 		else
 			barColor = barColors[3];

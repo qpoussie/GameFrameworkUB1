@@ -2,8 +2,6 @@ package linkstr;
 
 import gameframework.base.MoveStrategyStraightLine;
 import gameframework.game.CanvasDefaultImpl;
-import gameframework.game.Game;
-import gameframework.game.GameLevelDefaultImpl;
 import gameframework.game.GameMovableDriverDefaultImpl;
 import gameframework.game.GameUniverseDefaultImpl;
 import gameframework.game.GameUniverseViewPortDefaultImpl;
@@ -24,11 +22,11 @@ import linkstr.entity.RedRoc;
 import linkstr.entity.Sand;
 import linkstr.entity.Tree;
 import linkstr.entity.soldier.ArmedUnitSoldier;
+import linkstr.entity.soldier.FocusableArmedUnit;
 import linkstr.entity.soldier.SelectableArmedUnit;
 import linkstr.rule.BadLinkMovableDriver;
 import linkstr.rule.GameLinkImpl;
 import linkstr.rule.LinkStrOverlapRules;
-import linkstr.rule.MoveStrategyDeadUnit;
 import linkstr.rule.MoveStrategyRandomBadLink;
 import linkstr.utils.MiddleAgeFactory;
 import pacman.rule.PacmanMoveBlockers;
@@ -141,6 +139,7 @@ public class GameLevelOne extends GameLevelLinkImpl {
 		
 		// Enemies definition and inclusion in the universe
 		ArmedUnitSoldier[] myBLSlow = new ArmedUnitSoldier[10];
+		//FocusableArmedUnit[] myBLSlow = new FocusableArmedUnit[10];
 		
 		//bad Link slow
 		for(int i = 0; i < 10; i++){
@@ -154,6 +153,7 @@ public class GameLevelOne extends GameLevelLinkImpl {
 			badlinkSlowDriv.setmoveBlockerChecker(moveBlockerChecker);
 			
 			myBLSlow[i] = new ArmedUnitSoldier(ageFactory, "Simple", "badLink"+i, canvas, "images/darklink.png");
+			//myBLSlow[i] = new FocusableArmedUnit(new ArmedUnitSoldier(ageFactory, "Simple", "badLink"+i, canvas, "images/darklink.png"));
 			myBLSlow[i].setDriver(badlinkSlowDriv);
 			myBLSlow[i].setPosition(new Point(SPRITE_SIZE * (4 + i*2), 1 * SPRITE_SIZE));
 			
@@ -165,7 +165,7 @@ public class GameLevelOne extends GameLevelLinkImpl {
 
 	public GameLevelOne(GameLinkImpl g) {
 		super(g);
-		GameLinkImpl concreteGame = (GameLinkImpl)g;
+		//GameLinkImpl concreteGame = (GameLinkImpl)g;
 		canvas = g.getCanvas();
 	}
 

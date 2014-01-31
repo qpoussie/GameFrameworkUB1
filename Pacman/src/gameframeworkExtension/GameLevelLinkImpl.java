@@ -1,7 +1,6 @@
 package gameframeworkExtension;
 
 import gameframework.base.ObservableValue;
-import gameframework.game.Game;
 import gameframework.game.GameLevel;
 import gameframework.game.GameUniverse;
 import gameframework.game.GameUniverseViewPort;

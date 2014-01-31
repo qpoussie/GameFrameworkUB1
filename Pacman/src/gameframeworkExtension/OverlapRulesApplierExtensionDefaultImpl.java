@@ -20,9 +20,11 @@ public abstract class OverlapRulesApplierExtensionDefaultImpl extends
 
 	protected GameUniverse universe;
 	protected List<Selectable> currentSelection;
+	protected Focusable currentFocused;
 	
 	public void applyOverlapRules(Vector<Overlap> overlaps) {
 		currentSelection = new ArrayList<Selectable>();
+		currentFocused = null;
 		for (Overlap col : overlaps) {
 			applySpecificOverlapRule(col.getOverlappable1(),
 					col.getOverlappable2());
@@ -32,7 +34,9 @@ public abstract class OverlapRulesApplierExtensionDefaultImpl extends
 			selection.setActive(false);
 			universe.removeGameEntity(OverlappableSelection.getInstance());
 			MouseController.getInstance().setSelection(currentSelection);
-		}	
+		}
+		if(currentFocused != null)
+			currentFocused.setFocused(true);
 	}
 
 	protected void applySpecificOverlapRule(Overlappable e1, Overlappable e2) {
@@ -40,10 +44,19 @@ public abstract class OverlapRulesApplierExtensionDefaultImpl extends
 			currentSelection.add((Selectable)e2);
 			return;
 		}
-		if(e2 instanceof OverlappableSelection && e1 instanceof Selectable){
+		else if(e2 instanceof OverlappableSelection && e1 instanceof Selectable){
 			currentSelection.add((Selectable)e1);
 			return;
 		}
+		else if(e1 instanceof OverlappableCursor && e2 instanceof Selectable){
+			currentFocused = (Focusable)e2;
+			return;
+		}
+		else if(e2 instanceof OverlappableCursor && e1 instanceof Selectable){
+			currentFocused = ((Focusable)e1);
+			return;
+		}
+		
 		Method m;
 		try {
 			m = getClass().getMethod("overlapRule", e1.getClass(),
@@ -54,25 +67,6 @@ public abstract class OverlapRulesApplierExtensionDefaultImpl extends
 			return;
 		}
 		invoke(m, e1, e2);
-	}
-
-	protected void reverseParameters(Overlappable e1, Overlappable e2) {
-		Method m;
-		try {
-			m = getClass().getMethod("overlapRule", e2.getClass(),
-					e1.getClass());
-		} catch (NoSuchMethodException e) {
-			return;
-		}
-		invoke(m, e2, e1);
-	}
-
-	protected void invoke(Method m, Overlappable e1, Overlappable e2) {
-		try {
-			m.invoke(this, e1, e2);
-		} catch (Exception e) {
-			throw new RuntimeException("Reflective invocation exception", e);
-		}
 	}
 
 }

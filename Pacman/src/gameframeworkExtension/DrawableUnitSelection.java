@@ -11,9 +11,9 @@ import java.awt.Point;
 
 public class DrawableUnitSelection{
 
-	public void draw(Graphics g, Point position, int renderingSize){
+	public void draw(Graphics g, Point position, int renderingSize, Color color){
 		Color oldColor = g.getColor();
-		g.setColor(new Color(0,255,0,180));
+		g.setColor(color);
 		g.drawOval((int)position.getX(), (int)position.getY() + renderingSize*3/5, renderingSize, renderingSize*2/5);
 		g.setColor(oldColor);
 		

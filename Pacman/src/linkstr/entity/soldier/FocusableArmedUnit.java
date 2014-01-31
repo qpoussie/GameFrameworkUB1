@@ -1,9 +1,10 @@
 package linkstr.entity.soldier;
 
 import gameframework.STR.facade.DrawableOverlappableGameEntity;
+import gameframework.base.Movable;
 import gameframework.base.SpeedVector;
 import gameframework.game.GameMovableDriver;
-import gameframeworkExtension.GameMovableDriverDead;
+import gameframeworkExtension.Focusable;
 
 import java.awt.Graphics;
 import java.awt.Point;
@@ -14,14 +15,13 @@ import linkstr.utils.Observer;
 import linkstr.utils.VisitorClassicForArmedUnit;
 import linkstr.utils.VisitorFunForArmedUnit;
 
-public class DeadArmedUnit implements DrawableOverlappableGameEntity,
-		ArmedUnit {
+public class FocusableArmedUnit implements Focusable, ArmedUnit, DrawableOverlappableGameEntity, Movable {
 
-	protected ArmedUnit armedUnit;
 	
-	public DeadArmedUnit(ArmedUnit au){
-		this.armedUnit = au;
-		this.armedUnit.setDriver(new GameMovableDriverDead());
+	protected ArmedUnit armedUnit;
+		
+	public FocusableArmedUnit(ArmedUnit au){
+		armedUnit = au;
 	}
 	
 	public String getName() {
@@ -80,8 +80,6 @@ public class DeadArmedUnit implements DrawableOverlappableGameEntity,
 		armedUnit.setPosition(p);
 	}
 	
-
-	
 	public void setDriver(GameMovableDriver driver){
 		armedUnit.setDriver(driver);
 	}
@@ -112,11 +110,6 @@ public class DeadArmedUnit implements DrawableOverlappableGameEntity,
 		return armedUnit.getBoundingBox();
 	}
 
-	@Override
-	public void setSelected(boolean b) {
-		armedUnit.setSelected(b);
-	}
-	
 	public void register(Observer<ArmedUnit> o){
 		armedUnit.register(o);
 	}
@@ -124,6 +117,12 @@ public class DeadArmedUnit implements DrawableOverlappableGameEntity,
 	@Override
 	public void setFocused(boolean b) {
 		armedUnit.setFocused(b);
+		
+	}
+
+	@Override
+	public void setSelected(boolean b) {
+		// TODO Auto-generated method stub
 		
 	}
 

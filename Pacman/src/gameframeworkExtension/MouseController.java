@@ -1,11 +1,12 @@
 package gameframeworkExtension;
 
 import gameframework.base.Movable;
+import gameframework.game.GameEntity;
 import gameframework.game.GameMovableDriver;
 import gameframework.game.GameMovableDriverDefaultImpl;
 import gameframework.game.GameUniverse;
-import gameframework.game.MoveBlockerCheckerDefaultImpl;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,9 +27,17 @@ public class MouseController extends MouseAdapter{
 	private static MouseController uniqueInstance;
 	private GameUniverse gameUniverse;
 	private DrawableGlobalSelection drawableSelection;
-	private List<Selectable> currentSelection;
+	private OverlappableSelection overlappableSelection;
+	private OverlappableCursor overlappableCursor;
 	
-	private MouseController(){}
+	private List<Selectable> currentSelection;
+	private Focusable currentFocused;
+
+	private MouseController(){
+		drawableSelection = DrawableGlobalSelection.getInstance();
+		overlappableSelection = OverlappableSelection.getInstance();
+		overlappableCursor = OverlappableCursor.getInstance(new Point(0,0));
+	}
 
 	public static MouseController getInstance(){
 		if(uniqueInstance == null)
@@ -38,21 +47,33 @@ public class MouseController extends MouseAdapter{
 	
 	public void setGameUnivers(GameUniverse gameUniverse){
 		this.gameUniverse = gameUniverse;
+		gameUniverse.addGameEntity(overlappableCursor);
 	}
 
 	public void mousePressed(MouseEvent e){
-		if(e.getButton() == MouseEvent.BUTTON1){
-			drawableSelection = DrawableGlobalSelection.getInstance();
+		switch(e.getButton()){
+		case MouseEvent.BUTTON1:
 			drawableSelection.setOriginePoint(e.getPoint());
 			gameUniverse.addGameEntity(drawableSelection);
+			break;
+		case MouseEvent.BUTTON3:
+			if(currentSelection != null){
+				for(Selectable s : currentSelection){
+					s.setSelected(true);
+					int xOffset = (int)((Movable)s).getBoundingBox().getWidth()/2;
+					int yOffset = (int)((Movable)s).getBoundingBox().getHeight();
+					MoveStrategyStraightLineGoodStop strat = new MoveStrategyStraightLineGoodStop(((Movable) s).getPosition(), new Point((int)(e.getPoint().getX()-xOffset), (int)(e.getPoint().getY()-yOffset)));
+					GameMovableDriver driver = ((SelectableArmedUnit) s).getDriver(); 
+					((GameMovableDriverDefaultImpl) driver).setStrategy(strat);
+				}
+			}
+			break;
 		}
-
 	}
 
 	public void mouseReleased(MouseEvent e){
-		if(e.getButton() == MouseEvent.BUTTON1){
+		if (e.getButton() == MouseEvent.BUTTON1){
 			gameUniverse.removeGameEntity(drawableSelection);
-			OverlappableSelection overlappableSelection = OverlappableSelection.getInstance();
 			overlappableSelection.setPositionAndRectangle(drawableSelection);
 			if(overlappableSelection.getBoundingBox() != null){
 				gameUniverse.addGameEntity(overlappableSelection);
@@ -67,27 +88,17 @@ public class MouseController extends MouseAdapter{
 	}
 
 	public void mouseClicked(MouseEvent e){
-		switch (e.getButton()){
-		
-		case MouseEvent.BUTTON1:
+		if(e.getButton() == MouseEvent.BUTTON1){
 			OverlappableSelection overlappableSelection = OverlappableSelection.getInstance();
-			overlappableSelection.setPositionAndRectangle(new Rectangle((int)e.getPoint().getX(), (int)e.getPoint().getY(), (int)e.getPoint().getX()+1, (int)e.getPoint().getY()+1));
-			break;
+			overlappableSelection.setPositionAndRectangle(new Rectangle((int)e.getPoint().getX(), (int)e.getPoint().getY(), 1, 1));
+			overlappableSelection.setActive(true);
 			
-		case MouseEvent.BUTTON2:
-			break;
-			
-		case MouseEvent.BUTTON3:
-			if(currentSelection != null){
-				for(Selectable s : currentSelection){
-					s.setSelected(true);
-					MoveStrategyStraightLineGoodStop strat = new MoveStrategyStraightLineGoodStop(((Movable) s).getPosition(), e.getPoint());
-					GameMovableDriver driver = ((SelectableArmedUnit) s).getDriver();
-					((GameMovableDriverDefaultImpl) driver).setStrategy(strat);
-				}
-			}
-			break;
 		}
+	}
+	
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		overlappableCursor.setPosition(e.getPoint());	
 	}
 	
 	
@@ -101,5 +112,14 @@ public class MouseController extends MouseAdapter{
 		for(Selectable s : currentSelection){
 			s.setSelected(true);
 		}
+	}
+
+	public void setFocused(Focusable currentFocused) {
+		System.out.println("coucou");
+		if(this.currentFocused != null)
+			currentFocused.setFocused(false);
+		this.currentFocused = currentFocused;
+		currentFocused.setFocused(true);
+		
 	}
 }

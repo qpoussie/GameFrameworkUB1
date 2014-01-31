@@ -56,7 +56,7 @@ public class OverlappableSelection implements Overlappable, GameEntity {
 	}
 
 	public void setActive(boolean b) {
-		active = b;		
+		active = b;
 	}
 
 	public boolean isActive() {

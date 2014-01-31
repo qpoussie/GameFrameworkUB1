@@ -10,6 +10,7 @@ import gameframework.game.SpriteManagerDefaultImpl;
 import gameframeworkExtension.DrawableUnitSelection;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -36,6 +37,7 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 	public static final int RENDERING_SIZE = 32;
 	protected boolean movable = true;
 	protected boolean selected = false;
+	protected boolean focused = false;
 	protected boolean dead = false;
 	protected int attack = 3; 
 	
@@ -170,7 +172,11 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 		}
 		spriteManager.setType(spriteType);
 		if(selected == true){
-			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE);
+			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE, Color.green);
+		}
+		if(focused == true){
+			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE, Color.green);
+			focused = false;
 		}
 
 		drawableHealthBar.draw(g, getPosition(), RENDERING_SIZE, ((SoldierAbstract)soldier).getTotalHealthPoints(), soldier.getHealthPoints());
@@ -225,6 +231,11 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 	public void setSelected(boolean b) {
 		selected = b;
 		
+	}
+
+	@Override
+	public void setFocused(boolean b) {
+		focused = b;
 	}
 
 }

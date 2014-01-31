@@ -35,4 +35,5 @@ public interface ArmedUnit {
 	public void oneStepMove();
 	public GameMovableDriver getDriver();
 	public void setSelected(boolean b);
+	public void setFocused(boolean b);
 }

@@ -10,6 +10,7 @@ import gameframeworkExtension.DrawableUnitSelection;
 import gameframeworkExtension.Selectable;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -65,7 +66,7 @@ public class NiceLink extends GameMovable implements Drawable, GameEntity,
 		}
 		spriteManager.setType(spriteType);
 		if(selected == true){
-			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE);
+			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE, Color.green);
 		}
 		spriteManager.draw(g, getPosition());
 		

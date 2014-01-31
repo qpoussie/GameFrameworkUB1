@@ -30,7 +30,8 @@ public class DrawableGlobalSelection implements Drawable, GameEntity {
 	
 	public void setOriginePoint(Point dragOrigine){
 		this.dragOrigine = dragOrigine;
-		this.dragActualPos = dragOrigine;
+		this.dragActualPos = new Point((int)dragOrigine.getX()+1,(int)dragOrigine.getY()+1);
+		this.boundingRect = new Rectangle((int)(dragOrigine.getX()),(int)(dragOrigine.getY()), 1, 1);
 	}
 
 	public void setDragActualPos(Point dragActualPos){

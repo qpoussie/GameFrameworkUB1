@@ -1,5 +1,12 @@
 package linkstr.entity.soldier;
 
+import gameframework.STR.facade.DrawableOverlappableGameEntity;
+import gameframework.base.Movable;
+import gameframework.base.SpeedVector;
+import gameframework.game.GameMovableDriver;
+import gameframeworkExtension.Focusable;
+import gameframeworkExtension.Selectable;
+
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -8,13 +15,8 @@ import linkstr.utils.AgeFactory;
 import linkstr.utils.Observer;
 import linkstr.utils.VisitorClassicForArmedUnit;
 import linkstr.utils.VisitorFunForArmedUnit;
-import gameframework.STR.facade.DrawableOverlappableGameEntity;
-import gameframework.base.Movable;
-import gameframework.base.SpeedVector;
-import gameframework.game.GameMovableDriver;
-import gameframeworkExtension.Selectable;
 
-public class SelectableArmedUnit implements Selectable, ArmedUnit, DrawableOverlappableGameEntity, Movable {
+public class SelectableArmedUnit implements Selectable, Focusable, ArmedUnit, DrawableOverlappableGameEntity, Movable {
 
 	
 	protected ArmedUnit armedUnit;
@@ -118,6 +120,12 @@ public class SelectableArmedUnit implements Selectable, ArmedUnit, DrawableOverl
 	
 	public void register(Observer<ArmedUnit> o){
 		armedUnit.register(o);
+	}
+
+	@Override
+	public void setFocused(boolean b) {
+		armedUnit.setFocused(b);
+		
 	}
 	
 }
