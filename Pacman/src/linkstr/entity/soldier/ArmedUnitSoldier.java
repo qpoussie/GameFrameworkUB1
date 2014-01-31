@@ -7,10 +7,8 @@ import gameframework.base.SpeedVector;
 import gameframework.game.GameMovableDriver;
 import gameframework.game.SpriteManager;
 import gameframework.game.SpriteManagerDefaultImpl;
-import gameframeworkExtension.DrawableUnitSelection;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;

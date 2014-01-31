@@ -75,6 +75,7 @@ public class FocusableArmedUnit implements Focusable, ArmedUnit, DrawableOverlap
 	public void draw(Graphics g) {
 		if(focused == true){
 			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE, Color.red);
+			focused = false;
 		}
 		armedUnit.draw(g);
 	}

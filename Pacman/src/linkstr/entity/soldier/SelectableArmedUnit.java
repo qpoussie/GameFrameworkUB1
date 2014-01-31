@@ -81,6 +81,7 @@ public class SelectableArmedUnit implements Selectable, Focusable, ArmedUnit, Dr
 		}
 		if(focused == true){
 			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE, Color.green);
+			focused = false;
 		}
 		armedUnit.draw(g);
 	}
