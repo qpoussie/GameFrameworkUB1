@@ -16,7 +16,7 @@ import java.awt.Canvas;
 import java.awt.Point;
 import java.util.Random;
 
-import linkstr.entity.Arrow;
+import linkstr.entity.OffensiveWeapon;
 import linkstr.entity.GreenRoc;
 import linkstr.entity.RedRoc;
 import linkstr.entity.Sand;
@@ -103,7 +103,7 @@ public class GameLevelOne extends GameLevelLinkImpl {
 					universe.addGameEntity(new GreenRoc(canvas, j * SPRITE_SIZE, i * SPRITE_SIZE));
 				}
 				if (tab[i][j] == 2) {
-					universe.addGameEntity(new Arrow(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+					universe.addGameEntity(new OffensiveWeapon(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 				}
 				if (tab[i][j] == 4) {
 					universe.addGameEntity(new RedRoc(canvas, j * SPRITE_SIZE, i * SPRITE_SIZE));

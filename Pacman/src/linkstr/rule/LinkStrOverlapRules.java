@@ -2,7 +2,7 @@ package linkstr.rule;
 
 import java.util.Vector;
 
-import linkstr.entity.Arrow;
+import linkstr.entity.OffensiveWeapon;
 import linkstr.entity.soldier.ArmedUnitSoldier;
 import linkstr.entity.soldier.SelectableArmedUnit;
 import gameframework.base.ObservableValue;
@@ -45,7 +45,7 @@ public class LinkStrOverlapRules extends OverlapRulesApplierExtensionDefaultImpl
 		}
 	}
 	
-	public void overlapRule(SelectableArmedUnit ally, Arrow weapon){
+	public void overlapRule(SelectableArmedUnit ally, OffensiveWeapon weapon){
 		ally.addEquipment("Offensive");
 	}
 

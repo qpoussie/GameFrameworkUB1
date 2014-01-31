@@ -9,12 +9,12 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-public class Arrow implements Drawable, GameEntity, Overlappable {
+public class OffensiveWeapon implements Drawable, GameEntity, Overlappable {
 	protected static DrawableImage image = null;
 	protected Point position;
 	public static final int RENDERING_SIZE = 32;
 
-	public Arrow(Canvas defaultCanvas, Point pos) {
+	public OffensiveWeapon(Canvas defaultCanvas, Point pos) {
 		image = new DrawableImage("images/arrow.png", defaultCanvas);
 		position = pos;
 	}
