@@ -149,7 +149,7 @@ public class GameLinkImpl implements Game, Observer {
 
 	private Container createStatusBar() {
 		JPanel c = new JPanel();
-		c.setBackground(Color.WHITE);
+		c.setBackground(new Color(252, 224, 168));
 		GridBagLayout layout = new GridBagLayout();
 		c.setLayout(layout);
 		linkAliveValue = new Label(Integer.toString(linkAlive[0].getValue()));
