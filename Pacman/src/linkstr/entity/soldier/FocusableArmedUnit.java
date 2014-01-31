@@ -4,13 +4,14 @@ import gameframework.STR.facade.DrawableOverlappableGameEntity;
 import gameframework.base.Movable;
 import gameframework.base.SpeedVector;
 import gameframework.game.GameMovableDriver;
+import gameframeworkExtension.DrawableUnitSelection;
 import gameframeworkExtension.Focusable;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import linkstr.entity.soldier.weapon.SoldierWithSword;
 import linkstr.utils.AgeFactory;
 import linkstr.utils.Observer;
 import linkstr.utils.VisitorClassicForArmedUnit;
@@ -20,6 +21,9 @@ public class FocusableArmedUnit implements Focusable, ArmedUnit, DrawableOverlap
 
 	
 	protected ArmedUnit armedUnit;
+	private boolean focused = false;
+	private DrawableUnitSelection drawableUnitSelection = new DrawableUnitSelection();
+	private int RENDERING_SIZE = 32;
 		
 	public FocusableArmedUnit(ArmedUnit au){
 		armedUnit = au;
@@ -32,7 +36,7 @@ public class FocusableArmedUnit implements Focusable, ArmedUnit, DrawableOverlap
 	public float getHealthPoints() {
 		return armedUnit.getHealthPoints();
 	}
-
+	
 	public AgeFactory getAge() {
 		return armedUnit.getAge();
 	}
@@ -69,6 +73,10 @@ public class FocusableArmedUnit implements Focusable, ArmedUnit, DrawableOverlap
 
 
 	public void draw(Graphics g) {
+		if(focused == true){
+			drawableUnitSelection.draw(g, getPosition(), RENDERING_SIZE, Color.red);
+			focused = false;
+		}
 		armedUnit.draw(g);
 	}
 
@@ -117,8 +125,8 @@ public class FocusableArmedUnit implements Focusable, ArmedUnit, DrawableOverlap
 
 	@Override
 	public void setFocused(boolean b) {
+		focused = b;
 		armedUnit.setFocused(b);
-		
 	}
 
 	@Override
