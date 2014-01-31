@@ -17,18 +17,18 @@ import java.awt.Point;
 import java.util.Random;
 
 import linkstr.entity.Fairy;
-import linkstr.entity.OffensiveWeapon;
 import linkstr.entity.GreenRoc;
+import linkstr.entity.OffensiveWeapon;
 import linkstr.entity.RedRoc;
 import linkstr.entity.Sand;
 import linkstr.entity.Tree;
 import linkstr.entity.soldier.ArmedUnitSoldier;
-import linkstr.entity.soldier.FocusableArmedUnit;
 import linkstr.entity.soldier.SelectableArmedUnit;
 import linkstr.rule.BadLinkMovableDriver;
 import linkstr.rule.GameLinkImpl;
 import linkstr.rule.LinkStrOverlapRules;
 import linkstr.rule.MoveStrategyRandomBadLink;
+import linkstr.rule.MoveStrategyRandomFairy;
 import linkstr.utils.MiddleAgeFactory;
 import pacman.rule.PacmanMoveBlockers;
 
@@ -168,13 +168,12 @@ public class GameLevelOne extends GameLevelLinkImpl {
 		universe.addGameEntity(new OffensiveWeapon(canvas, new Point(12 * SPRITE_SIZE, 15 * SPRITE_SIZE)));
 		universe.addGameEntity(new OffensiveWeapon(canvas, new Point(15 * SPRITE_SIZE, 15 * SPRITE_SIZE)));
 		
-		
 		Fairy fairy = new Fairy(canvas);
 
 		BadLinkMovableDriver fairyDriv = new BadLinkMovableDriver();
-		MoveStrategyRandomBadLink mStrFairy = new MoveStrategyRandomBadLink();
-		fairyDriv.setLinkSpeed(3);
-		mStrFairy.setChangeFreq(50);
+		MoveStrategyRandomFairy mStrFairy = new MoveStrategyRandomFairy();
+		fairyDriv.setLinkSpeed(5);
+		mStrFairy.setChangeFreq(20);
 		fairyDriv.setStrategy(mStrFairy);
 		fairy.setDriver(fairyDriv);
 		fairy.setPosition(new Point(14 * SPRITE_SIZE, 16 * SPRITE_SIZE));
