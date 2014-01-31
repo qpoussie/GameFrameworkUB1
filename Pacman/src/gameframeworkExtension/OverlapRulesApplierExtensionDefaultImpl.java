@@ -48,11 +48,11 @@ public abstract class OverlapRulesApplierExtensionDefaultImpl extends
 			currentSelection.add((Selectable)e1);
 			return;
 		}
-		else if(e1 instanceof OverlappableCursor && e2 instanceof Selectable){
+		else if(e1 instanceof OverlappableCursor && e2 instanceof Focusable){
 			currentFocused = (Focusable)e2;
 			return;
 		}
-		else if(e2 instanceof OverlappableCursor && e1 instanceof Selectable){
+		else if(e2 instanceof OverlappableCursor && e1 instanceof Focusable){
 			currentFocused = ((Focusable)e1);
 			return;
 		}

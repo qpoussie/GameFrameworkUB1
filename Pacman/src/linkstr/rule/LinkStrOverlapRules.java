@@ -1,16 +1,17 @@
 package linkstr.rule;
 
-import java.util.Vector;
-
-import linkstr.entity.Fairy;
-import linkstr.entity.OffensiveWeapon;
-import linkstr.entity.soldier.ArmedUnit;
-import linkstr.entity.soldier.ArmedUnitSoldier;
-import linkstr.entity.soldier.SelectableArmedUnit;
 import gameframework.base.ObservableValue;
 import gameframework.base.Overlap;
 import gameframework.game.GameUniverse;
 import gameframeworkExtension.OverlapRulesApplierExtensionDefaultImpl;
+
+import java.util.Vector;
+
+import linkstr.entity.Fairy;
+import linkstr.entity.OffensiveWeapon;
+import linkstr.entity.soldier.ArmedUnitSoldier;
+import linkstr.entity.soldier.FocusableArmedUnit;
+import linkstr.entity.soldier.SelectableArmedUnit;
 
 public class LinkStrOverlapRules extends OverlapRulesApplierExtensionDefaultImpl{
 
@@ -33,20 +34,18 @@ public class LinkStrOverlapRules extends OverlapRulesApplierExtensionDefaultImpl
 
 	}
 
-	public void overlapRule(SelectableArmedUnit ally, ArmedUnitSoldier enemy){
+	public void overlapRule(SelectableArmedUnit ally, FocusableArmedUnit enemy){
 		if(ally.alive() && enemy.alive()){
 			enemy.parry(ally.strike());
 			ally.parry(enemy.strike());
 
 			if(!enemy.alive())
 				badSoldier.setValue(badSoldier.getValue()-1);
-			//System.out.println("enemy "+enemy.getName()+" est mort.\n");
 			if(!ally.alive())
 				soldier.setValue(soldier.getValue()-1);				
-			//System.out.println("allié "+ally.getName()+" est mort.\n");
 		}
 	}	
-	public void overlapRule(ArmedUnitSoldier soldier, Fairy heal){
+	public void overlapRule(FocusableArmedUnit soldier, Fairy heal){
 		if(soldier.getHealthPoints() < 100){
 			this.universe.removeGameEntity(heal);
 			soldier.heal();
@@ -60,7 +59,7 @@ public class LinkStrOverlapRules extends OverlapRulesApplierExtensionDefaultImpl
 		}
 	}
 
-	public void overlapRule(ArmedUnitSoldier soldier, OffensiveWeapon weapon){
+	public void overlapRule(FocusableArmedUnit soldier, OffensiveWeapon weapon){
 		if(!soldier.isOffensive()){
 			this.universe.removeGameEntity(weapon);
 			soldier.addEquipment("Offensive");
