@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import linkstr.entity.soldier.weapon.SoldierWithSword;
 import linkstr.utils.AgeFactory;
 import linkstr.utils.Observer;
 import linkstr.utils.VisitorClassicForArmedUnit;
@@ -124,6 +125,10 @@ public class FocusableArmedUnit implements Focusable, ArmedUnit, DrawableOverlap
 	public void setSelected(boolean b) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public boolean isOffensive() {
+		return armedUnit.isOffensive() ;
 	}
 
 }

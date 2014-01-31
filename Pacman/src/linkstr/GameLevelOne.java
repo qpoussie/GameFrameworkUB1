@@ -16,6 +16,7 @@ import java.awt.Canvas;
 import java.awt.Point;
 import java.util.Random;
 
+import linkstr.entity.Fairy;
 import linkstr.entity.OffensiveWeapon;
 import linkstr.entity.GreenRoc;
 import linkstr.entity.RedRoc;
@@ -42,15 +43,15 @@ public class GameLevelOne extends GameLevelLinkImpl {
 		{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 		{ 1, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 		{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-		{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2, 1 },
+		{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 		{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 		{ 1, 0, 0, 0, 0, 0, 0, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 0, 0, 0, 0, 0, 0, 1 },
 		{ 1, 0, 0, 0, 0, 0, 0, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 0, 0, 0, 0, 0, 0, 1 },
 		{ 1, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 1 },
 		{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 		{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-		{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
-		{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
+		{ 1, 5, 5, 5, 5, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
+		{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5, 5, 5, 1 },
 		{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 		{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
 		{ 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1 },
@@ -159,8 +160,26 @@ public class GameLevelOne extends GameLevelLinkImpl {
 			
 			universe.addGameEntity(myBLSlow[i]);
 		}
+		
+		
 		linkAlive[0].setValue(5);
 		badLinkAlive[0].setValue(10);
+		
+		universe.addGameEntity(new OffensiveWeapon(canvas, new Point(12 * SPRITE_SIZE, 15 * SPRITE_SIZE)));
+		universe.addGameEntity(new OffensiveWeapon(canvas, new Point(15 * SPRITE_SIZE, 15 * SPRITE_SIZE)));
+		
+		
+		Fairy fairy = new Fairy(canvas);
+
+		BadLinkMovableDriver fairyDriv = new BadLinkMovableDriver();
+		MoveStrategyRandomBadLink mStrFairy = new MoveStrategyRandomBadLink();
+		fairyDriv.setLinkSpeed(3);
+		mStrFairy.setChangeFreq(50);
+		fairyDriv.setStrategy(mStrFairy);
+		fairy.setDriver(fairyDriv);
+		fairy.setPosition(new Point(14 * SPRITE_SIZE, 16 * SPRITE_SIZE));
+		universe.addGameEntity(fairy);
+	
 	}
 
 	public GameLevelOne(GameLinkImpl g) {

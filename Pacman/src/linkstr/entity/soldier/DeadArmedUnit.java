@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import linkstr.entity.soldier.weapon.SoldierWithSword;
 import linkstr.utils.AgeFactory;
 import linkstr.utils.Observer;
 import linkstr.utils.VisitorClassicForArmedUnit;
@@ -125,6 +126,11 @@ public class DeadArmedUnit implements DrawableOverlappableGameEntity,
 	public void setFocused(boolean b) {
 		armedUnit.setFocused(b);
 		
+	}
+	
+	@Override
+	public boolean isOffensive() {
+		return armedUnit.isOffensive() ;
 	}
 
 }

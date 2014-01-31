@@ -18,6 +18,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import linkstr.entity.soldier.weapon.SoldierWithSword;
 import linkstr.utils.AgeFactory;
 import linkstr.utils.ObservableAbstract;
 import linkstr.utils.VisitorClassicForArmedUnit;
@@ -236,6 +237,11 @@ public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> implements
 	@Override
 	public void setFocused(boolean b) {
 		focused = b;
+	}
+
+	@Override
+	public boolean isOffensive() {
+		return soldier.getClass().equals(SoldierWithSword.class) ;
 	}
 
 }

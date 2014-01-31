@@ -15,7 +15,7 @@ public class OffensiveWeapon implements Drawable, GameEntity, Overlappable {
 	public static final int RENDERING_SIZE = 32;
 
 	public OffensiveWeapon(Canvas defaultCanvas, Point pos) {
-		image = new DrawableImage("images/arrow.png", defaultCanvas);
+		image = new DrawableImage("images/sword.gif", defaultCanvas);
 		position = pos;
 	}
 

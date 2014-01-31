@@ -209,5 +209,15 @@ public class ArmedUnitSquad extends ObservableAbstract<ArmedUnit> implements
 	public void setFocused(boolean b) {
 		focused = b;		
 	}
+	
+	@Override
+	public boolean isOffensive() {
+		//return soldier.getClass().equals(SoldierWithSword.class) ;
+		boolean res = true;
+		for(ArmedUnit s: armedUnitList){
+			res &= s.isOffensive();
+		}
+		return res;
+	}
 
 }

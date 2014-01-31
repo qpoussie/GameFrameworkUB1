@@ -36,4 +36,5 @@ public interface ArmedUnit {
 	public GameMovableDriver getDriver();
 	public void setSelected(boolean b);
 	public void setFocused(boolean b);
+	public boolean isOffensive();
 }
