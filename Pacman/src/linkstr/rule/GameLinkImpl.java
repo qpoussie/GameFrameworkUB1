@@ -9,9 +9,11 @@ import gameframeworkExtension.Sound;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Frame;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.Menu;
 import java.awt.MenuBar;
@@ -147,6 +149,7 @@ public class GameLinkImpl implements Game, Observer {
 
 	private Container createStatusBar() {
 		JPanel c = new JPanel();
+		c.setBackground(Color.WHITE);
 		GridBagLayout layout = new GridBagLayout();
 		c.setLayout(layout);
 		linkAliveValue = new Label(Integer.toString(linkAlive[0].getValue()));

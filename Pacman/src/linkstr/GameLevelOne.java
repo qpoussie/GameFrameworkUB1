@@ -144,7 +144,7 @@ public class GameLevelOne extends GameLevelLinkImpl {
 		FocusableArmedUnit[] myBLSlow = new FocusableArmedUnit[10];
 		
 		//bad Link slow
-		for(int i = 0; i < 10; i++){
+		for(int i = 0; i < 9; i++){
 
 			BadLinkMovableDriver badlinkSlowDriv = new BadLinkMovableDriver();
 			MoveStrategyRandomBadLink mStrSlow = new MoveStrategyRandomBadLink();
@@ -163,7 +163,7 @@ public class GameLevelOne extends GameLevelLinkImpl {
 		}
 		
 
-		badLinkAlive[0].setValue(10);
+		badLinkAlive[0].setValue(9);
 		linkAlive[0].setValue(5);
 		
 		universe.addGameEntity(new OffensiveWeapon(canvas, new Point(12 * SPRITE_SIZE, 15 * SPRITE_SIZE)));
